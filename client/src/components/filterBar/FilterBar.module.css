@@ -1,0 +1,6 @@
+.filterContainer{
+    display:flex;
+    height: 30px;
+    width: 700px;
+    margin-left: 50px;
+}

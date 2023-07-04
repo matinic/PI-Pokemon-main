@@ -1,0 +1,52 @@
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin:auto;
+    margin-top: 10px;
+    background-color: rgb(98, 24, 236);
+    width: 600px;
+    border-radius: 10px;
+}
+.formContainer button {
+    margin: 10px;
+
+}
+.typesContainer{
+    display: flex;
+    margin: 10px;
+}
+.error{
+    color: rgb(255, 255, 255);
+}
+.previewImage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 100px;
+    background-color: black;
+    color: darkgray;
+}
+.viewImage{
+    width: 150px;
+    height: 100px;
+}
+.errorStatusInput{
+    display:flex;
+    flex-direction: column;
+    background-color: rgb(238, 116, 161);
+    width: 100%;
+    margin: 5px;
+    align-items: center;
+    justify-content: center;
+}
+.correctStatusInput{
+    display:flex;
+    flex-direction: column;
+    background-color: rgb(17, 169, 126);
+    width: 100%;
+    margin: 5px;
+    align-items: center;
+    justify-content: center;
+}
