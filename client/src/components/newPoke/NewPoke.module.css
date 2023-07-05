@@ -28,6 +28,15 @@
     background-color: black;
     color: darkgray;
 }
+.previewImage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 100px;
+    background-color: black;
+    color: darkgray;
+}
 .viewImage{
     width: 150px;
     height: 100px;

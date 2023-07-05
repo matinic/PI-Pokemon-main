@@ -13,8 +13,9 @@ export const ORDER_ZA = 'ORDER_ZA';
 export const WIPE_ERROR = 'WIPE_ERROR';
 export const ERROR = 'ERROR';
 export const ACTUAL_RENDER = 'ACTUAL_RENDER';
-export const SELECTED_OP = 'SELECTED_OP'
-export const ACTUAL_PAGE = 'ACTUAL_PAGE'
+export const SELECTED_OP = 'SELECTED_OP';
+export const ACTUAL_PAGE = 'ACTUAL_PAGE';
+
 
 
 

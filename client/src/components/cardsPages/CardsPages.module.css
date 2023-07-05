@@ -18,8 +18,12 @@
   
     padding: 5px;
     color: white;
-    height:30px;
+    height:45px;
     margin: 5px;
+}
+.actualPageNumberButton{
+  background: black;
+  color: white;
 }
 .project-info {
     padding: 25px 40px;

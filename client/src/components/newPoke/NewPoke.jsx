@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { postPokemon } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import Validations from './Validations';
+import { useNavigate } from 'react-router-dom';
+import invalid from '../../images/IMAGEN_INVALIDA.jpg'
 //import ValidationsName from './ValidationsName';
 
 
@@ -26,19 +28,7 @@ export default function NewPoke(params) {
     });
    
    useEffect(()=>{setError(Validations({...form}))},[form])
-
-    // useEffect(()=>{
-    //    async function  asyncValidation() {
-    //         try {
-    //             const {name} = await ValidationsName(form.name);
-    //             setError({...error,name});
-    //         } catch (err) {
-               
-    //         }
-    //     }
-    //     asyncValidation()
-    // },[form])
-   
+    const navigate = useNavigate()
     const onChangeHandler = (ev)=>{
         const {name,value} = ev.target;
         if(name.includes('type')){
@@ -87,22 +77,14 @@ export default function NewPoke(params) {
                  }
             }
           }
-
         setError(Validations({...form}))
-        // async function  asyncValidation() {
-        //         try {
-        //             const {name} = await ValidationsName(value);
-        //             setError({...error,name});
-        //         } catch (err) {
-                    
-        //         }
-        //     }
-        // asyncValidation()
     }
-    
+  
    const postPokemonHnadler = (ev)=>{
         ev.preventDefault()
         dispatch(postPokemon(form))
+        alert('pokemon creado')
+        navigate(`/detail/name/${form.name}`)
    }
    const handlerPaste = async ()=>{
         const textCopied = await navigator.clipboard.readText();
@@ -124,10 +106,11 @@ export default function NewPoke(params) {
             </div>
 
             <div className={error.image ? styles.errorStatusInput : styles.correctStatusInput}>
-                <h3 name="hp">*Subir una imagen</h3>
-                {form.image ? <img src={form.image} className={styles.viewImage}/> : <div className={styles.previewImage}><h5>PREVIEW</h5></div>}
+                <h3 name="hp">*Imagen</h3>
+                {form.image ? <img onError={(ev)=>{ev.target.src = invalid; setError({...error,image:'imagen invalida'})}} src={form.image} className={styles.viewImage}/> : <div className={styles.previewImage}><h5>PREVIEW</h5></div>}
                 <button onClick={handlerPaste}>Pegar Link</button>
-                <input onChange={onChangeHandler} name="image" type="text"/>
+                <input onChange={onChangeHandler} name="image" type="text" value={form.image}/>
+                <h5 className={styles.error}>{error.image}</h5>
             </div>
 
             <div className={error.hp ? styles.errorStatusInput : styles.correctStatusInput}>
@@ -148,7 +131,7 @@ export default function NewPoke(params) {
                 <h5 className={styles.error}>{error.deffense}</h5>
             </div>
 
-            <h5>Valores menores a 1 se ignorarán</h5>
+           
                 <h3>Velocidad</h3>
                 <input type="number" onChange={onChangeHandler} name="speed" value={form.speed}/>
                 <h5 className={styles.error}>{error.speed}</h5>

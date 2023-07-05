@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { actualRender, getAllPokemonsByType, getPokemonsByType, orderAZ, orderLessPw, orderMostPw, orderZA, selectedOp } from "../../redux/actions"
+import { actualRender, getAllPokemonsByType, getPokemonsByType, orderAZ, orderLessPw, orderMostPw, orderZA, selectedOp,actualPage } from "../../redux/actions"
 import style from './FilterBar.module.css'
 
 export default function FilterBar(){
@@ -27,6 +27,7 @@ export default function FilterBar(){
                 dispatch(selectedOp(name,value))//guarda la configuracion actual
             }
         }
+        dispatch(actualPage(1))
     }
     const handlerOrder = (ev)=>{
         const {value,name} = ev.target

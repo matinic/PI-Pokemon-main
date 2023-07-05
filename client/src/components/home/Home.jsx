@@ -20,12 +20,8 @@ export default function Home(){
         <div>
          
             <div className={styles.CardsContainer}>
-            
-            {
-                allPokemons.length  || allPokemonsDb.length ?
-                <CardsPages  allCards = {{allPokemons,allPokemonsDb,actual}}
-                />:null
-            }           
+     
+                <CardsPages  allCards = {{allPokemons,allPokemonsDb,actual}}></CardsPages>
 
             </div>
         </div>

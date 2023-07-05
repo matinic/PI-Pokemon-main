@@ -39,6 +39,6 @@ module.exports = async function postNewPokemonHandler(req,res){
 
         return res.status(201).json({...pokemon.dataValues,types:findedTypes})
     }catch(err){
-        return res.status(500).json({message: "No se pudo crear el pokemon", error: err.message})
+        return res.status(500).json({error: err.message})
     }
 }

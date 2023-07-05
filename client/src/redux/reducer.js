@@ -1,4 +1,4 @@
-import { ACTUAL_PAGE, ACTUAL_RENDER, ERROR, GET_ALL_POKEMONS_TYPES, GET_POKEMONS, GET_POKEMONS_DB, GET_POKEMON_BY_TYPE, GET_POKEMON_ID, GET_POKEMON_NAME, ORDER_AZ, ORDER_LESSPW, ORDER_MOSTPW, ORDER_ZA, POST_POKEMON, SELECTED_OP, WIPE_ERROR } from "./types";
+import { ACTUAL_PAGE, ACTUAL_RENDER, ERROR, GET_ALL_POKEMONS_TYPES, GET_POKEMONS, GET_POKEMONS_DB, GET_POKEMON_BY_TYPE, GET_POKEMON_ID, GET_POKEMON_NAME, ORDER_AZ, ORDER_LESSPW, ORDER_MOSTPW, ORDER_ZA, POKEMONS_AMOUNT, POST_POKEMON, SELECTED_OP, WIPE_ERROR } from "./types";
 
 const initialState = {
     allPokemons: [],
@@ -47,7 +47,7 @@ export default function reducer(state=initialState,{type,payload}){
             return{
                 ...state,
                 allPokemons: [...state.allPokemonsReserve].filter(poke => poke.types.includes(payload)),
-                allPokemonsDb: [...state.allPokemonsDbReserve].filter(poke => poke.types.includes(payload))
+                allPokemonsDb: [...state.allPokemonsDbReserve].filter(poke => poke.types.includes(payload))  
             }
         case GET_ALL_POKEMONS_TYPES:
             return{
@@ -108,3 +108,17 @@ export default function reducer(state=initialState,{type,payload}){
             return state
     }
 }
+
+
+/*
+allPokemons.filter(pokemons =>
+  Array.isArray(obj) ? obj.includes(name) : obj.name.includes(searchString)
+);
+*/
+/*
+const filteredObj = {
+    data: obj.data.filter(item =>
+      Array.isArray(item) ? item.includes(searchString) : item.name.includes(searchString)
+    ),
+  }
+  */
