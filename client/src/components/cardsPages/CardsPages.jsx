@@ -65,11 +65,13 @@ export default function CardsPages({allCards}){
     
     const actualPageHandler = (e)=>{
         const {value,name} = e.target;
+        //botones que controlan hacia atras y hacia adelante
         if(name === 'prev'){
             if(pageNumber > 1) dispatch(actualPage(pageNumber - 1))
         }
         else if(name === 'next'){
             if(pageNumber < pagesKeys.length) dispatch(actualPage(pageNumber + 1))
+        //boton de numero pagina con valor unitario
         }else if(name === 'actual'){
             dispatch(actualPage(Number(value)))
         }  
@@ -78,7 +80,7 @@ export default function CardsPages({allCards}){
     return(
         <div>
             <div className={style.buttonPagesContainer}>
-            <button className={style.prev} name='prev' onClick={actualPageHandler}>prev</button>
+            <button className={style.pageButtons} name='prev' onClick={actualPageHandler}>{'<<'}</button>
 
                 {   
                     pagesKeys ? pagesKeys.map((pag, index) => <button
@@ -86,18 +88,20 @@ export default function CardsPages({allCards}){
                     value={index+1}
                     onClick={actualPageHandler}
                     key={index}
-                    className={ pageNumber === index+1 ? style.actualPageNumberButton : null}>
+                    className={ pageNumber === index+1 ? style.actualPageNumberButton : style.pageButtons}>
                         {index+1}
                     </button >):null
                 }
 
-            <button className={style.next} name='next' onClick={actualPageHandler}>next</button>
+            <button className={style.pageButtons} name='next' onClick={actualPageHandler}>{'>>'}</button>
             </div>
-       
-            <div className={style.cardsContainer}>
-            {
-                actualPag
-            }
+            
+            <div className={style.allPagesContainer}>
+                <div className={style.pageContainer}>
+                {
+                    actualPag
+                }
+                </div>
             </div>
         </div>
        

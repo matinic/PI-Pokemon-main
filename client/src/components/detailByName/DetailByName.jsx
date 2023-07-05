@@ -1,8 +1,8 @@
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
-import style from './DetailByName.module.css'
 import { useDispatch, useSelector } from "react-redux"
 import { getPokemonByName, wipeError } from "../../redux/actions"
+import Detail from "../detail/Detail"
 
 export default function DetailByName(){
 
@@ -19,23 +19,11 @@ export default function DetailByName(){
     return(
 
         <div>
-        <h1>Detail Page</h1>
         {
         (!error) ?
-        <div className={style.card}>            
-            <h1 >{card.name}</h1>
-            <img src={card.image} alt="" />
-            <h4>HP: {card.hp}</h4>
-            <h4>ATTACK: {card.attack}</h4>
-            <h4>DEFFENSE: {card.deffense}</h4>
-            <h4>SPEED: {card.speed}</h4>
-            <h4>HEIGHT: {card.height}</h4>
-            <h4>WEIGHT: {card.weight}</h4>
-            <h4>TYPES: {card.types?.map(type => type + ', ')}</h4>
-        </div>
+            <Detail card={card}></Detail>
         : <h2>Pokemon No Encontrado</h2>
         }
-
         </div>
     )
 }

@@ -52,13 +52,13 @@ export default function FilterBar(){
     }
     return(
         <div className={style.filterContainer}>
-            <label htmlFor="">Elegir Origen: </label>
+            <label htmlFor="">FILTRAR ORIGEN</label>
 
             <select name="origen" onChange={handlerFilterOrigin} value={selectedOptions.origen}>
                 <option value="API">API</option>
                 <option value="DB">Base de Datos</option>
             </select>
-            <label htmlFor="">Filtrar por tipo: </label>
+            <label htmlFor="">FILTRAR POR TIPO </label>
 
             <select name="type"  onChange={handlerFilterOrigin} value={selectedOptions.type}>
                 <option value="all" >All</option>
@@ -83,7 +83,7 @@ export default function FilterBar(){
                 <option value="unknown" >unknown</option>
                 <option value="shadow">shadow</option>
             </select>
-            <label htmlFor="">Ordenar</label>
+            <label htmlFor="">ORDENAR</label>
 
             <select name="alphabetical" onChange={handlerOrder} value={selectedOptions.alphabetical}>
                 <option disable="true">Alfabetico</option>

@@ -21,11 +21,12 @@
     scale: 110%;
     border: 2px solid  #a5a5a5;
 }
-.card h1 {
+.card h2 {
     
-    color: white;
+    color: #383838 ;
     margin: 10px;
 }
+
 .card h4{
 
     margin: 5px;
@@ -35,3 +36,22 @@
 .card img{
     width: 180px;
 }
+.type{
+    background:#E5573E;
+    color:#F5B357;
+    padding:10px;
+    border-radius: 5px;
+}
+.typeContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+
+
+/*#F5EEA9    amarillo*/
+/*#E5573E    rojo*/
+/*#383838    gris*/
+/*#F5B357   naranja*/
