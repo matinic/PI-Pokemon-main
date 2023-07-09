@@ -1,5 +1,5 @@
 const { Pokemon, PokemonType } = require("../../db");
-module.exports = async function getPokemonByIdDb(id) {
+module.exports = async (id) => {
   const pokemon = await Pokemon.findByPk(id, {
     include: {
       model: PokemonType,

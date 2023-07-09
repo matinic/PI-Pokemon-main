@@ -1,7 +1,7 @@
 const getOnePokemon = require("../getOnePokemon");
 const axios = require("axios");
 
-module.exports = async function getPokemonByName(name) {
+module.exports = async (name) => {
   const pokename = name?.toLowerCase().trim();
   const { results } = (
     await axios(`https://pokeapi.co/api/v2/pokemon?limit=1281`)

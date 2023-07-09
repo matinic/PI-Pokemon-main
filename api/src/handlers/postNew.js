@@ -1,6 +1,6 @@
 const postPokemon = require("../controllers_utils/DbControllers/postPokemon");
 
-module.exports = async function postNewPokemonHandler(req, res) {
+module.exports = async (req, res) => {
   const { name, image, hp, attack, deffense, types } = req.body;
   if ((!name, !image, !hp, !attack, !deffense, !types)) {
     return res.status(404).json({

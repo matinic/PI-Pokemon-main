@@ -1,7 +1,7 @@
 const axios = require("axios");
 const { Pokemon, PokemonType, Op } = require("../../db");
-
-module.exports = async function postPokemon({
+const getPokemonByIdDb = require("./getPokemonByIdDb");
+module.exports = async ({
   name,
   image,
   hp,
@@ -11,8 +11,8 @@ module.exports = async function postPokemon({
   height,
   weight,
   types,
-}) {
-  const min = name.toLowerCase();
+}) => {
+  const min = name.toLowerCase().trim();
   const alreadyExist = await Pokemon.findOne({ where: { name: min } });
   if (alreadyExist) throw Error("El pokemon ya existe en la base de datos");
   const pokemon = await Pokemon.create({
@@ -34,7 +34,6 @@ module.exports = async function postPokemon({
       [Op.or]: types.map((name) => ({ name })),
     },
   });
-  await pokemon.addPokemonTypes(existingTypes);
-  const findedTypes = existingTypes.map((type) => type.name);
-  return { ...pokemon.dataValues, types: findedTypes };
+  await pokemon.addTypes(existingTypes);//establece las relaciones en la tabla intermedia
+  return getPokemonByIdDb(pokemon.id);
 };

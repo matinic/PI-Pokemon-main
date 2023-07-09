@@ -1,7 +1,7 @@
 const getPokemonByName = require("../controllers_utils/ApiControllers/getPokemonByName");
 const getPokemonByNameDb = require("../controllers_utils/DbControllers/getPokemonByNameDb");
 
-module.exports = async function getPokemonByNameHandler(req, res) {
+module.exports = async (req, res) => {
   const { name } = req.query;
   if (!name)
     res
@@ -10,8 +10,12 @@ module.exports = async function getPokemonByNameHandler(req, res) {
   try {
     const pokemon = await getPokemonByName(name);
     const pokemonDb = await getPokemonByNameDb(name);
-    return res.status(200).json([...pokemonDb,...pokemon].sort((a,b)=> a.name.localeCompare(b.name)));
+    return res
+      .status(200)
+      .json(
+        [...pokemonDb, ...pokemon].sort((a, b) => a.name.localeCompare(b.name))
+      );
   } catch (err) {
-      return res.status(404).json({ message: "Pokemon no encontrado 404" });
+    return res.status(404).json({ message: "Pokemon no encontrado 404" });
   }
 };
