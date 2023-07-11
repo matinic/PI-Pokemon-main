@@ -39,12 +39,27 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Pokemon, PokemonType  } = sequelize.models;
+const { Pokemon, Type, User, PokemonApi, Favorite } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
-Pokemon.belongsToMany(PokemonType, {through: 'pokemon_pokemonType', as:'types'})
-PokemonType.belongsToMany(Pokemon, {through: 'pokemon_pokemonType', as:'types'})
+Pokemon.belongsToMany(Type, {through: 'pokemon_type', as:'types'})
+Type.belongsToMany(Pokemon, {through: 'pokemon_type', as:'types'}) 
+
+PokemonApi.belongsToMany(Type, {through: 'pokemonApi_type', as:'typesApi'})
+Type.belongsToMany(PokemonApi, {through: 'pokemonApi_type', as:'typesApi'})
+
+User.belongsToMany(PokemonApi, {through: 'user_pokemonApi', as:'favoritesApi'})
+PokemonApi.belongsToMany(User, {through: 'user_pokemonApi', as:'favoritesApi'})
+
+User.hasMany(Pokemon)//Un usuario tiene muchos pokemones(creados)
+Pokemon.belongsTo(User)//Un pokemon(creado) puede pertenecer a un usuario
+
+User.hasMany(Favorite)//Un usuario puede tener muchos favoritos de pokemones creados
+Favorite.belongsTo(User)//Los favoritos de los pokemones creados pueden pertenecer a un usuario
+
+Favorite.hasMany(Pokemon)//Una lista de favoritos puede tener muchos pokemones
+Pokemon.belongsTo(Favorite)//un pokemon creado puede pertenecer a una sola lista de favoritos
 
 module.exports = {
    ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

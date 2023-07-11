@@ -1,8 +1,8 @@
-const { Pokemon, PokemonType } = require("../../db");
+const { Pokemon, Type } = require("../../db");
 module.exports = async function getAllPokemonsDb() {
   const pokemons = await Pokemon.findAll({
     include: {
-      model: PokemonType,
+      model: Type,
       as: "types",
       attributes: ["name"],
       through: { attributes: [] },

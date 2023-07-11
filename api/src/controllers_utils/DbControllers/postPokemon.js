@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { Pokemon, PokemonType, Op } = require("../../db");
+const { Pokemon, Type, Op } = require("../../db");
 const getPokemonByIdDb = require("./getPokemonByIdDb");
 module.exports = async ({
   name,
@@ -25,11 +25,11 @@ module.exports = async ({
     height,
     weight,
   });
-  const areThereTypes = await PokemonType.findAll();
+  const areThereTypes = await Type.findAll();
   if (!areThereTypes.length) {
     await axios.get("http://localhost:3001/types");
   }
-  const existingTypes = await PokemonType.findAll({
+  const existingTypes = await Type.findAll({
     where: {
       [Op.or]: types.map((name) => ({ name })),
     },

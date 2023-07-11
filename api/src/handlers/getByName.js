@@ -18,4 +18,4 @@ module.exports = async (req, res) => {
   } catch (err) {
     return res.status(404).json({ message: "Pokemon no encontrado 404" });
   }
-};
+}; 
