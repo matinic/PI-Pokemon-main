@@ -1,5 +1,5 @@
-const getAllPokemons = require("../controllers_utils/ApiControllers/getAllPokemons");
-const getAllPokemonsDb = require("../controllers_utils/DbControllers/getAllPokemonsDb");
+const getAllPokemons = require("../../controllers_utils/ApiControllers/getAllPokemons");
+const getAllPokemonsDb = require("../../controllers_utils/DbControllers/pokemonDb/getAllPokemonsDb");
 
 module.exports = async (req, res) => {
   try {
@@ -7,6 +7,6 @@ module.exports = async (req, res) => {
     const allPokemonsDb = await getAllPokemonsDb();
     return res.status(200).json([...allPokemons, ...allPokemonsDb]);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    return res.status(404).json(error.message);
   }
 };

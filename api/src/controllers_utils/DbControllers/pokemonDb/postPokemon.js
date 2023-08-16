@@ -1,7 +1,8 @@
 const axios = require("axios");
-const { Pokemon, Type, Op } = require("../../db");
+const { Pokemon, Type, Op } = require("../../../db");
 const getPokemonByIdDb = require("./getPokemonByIdDb");
 module.exports = async ({
+  userId,
   name,
   image,
   hp,
@@ -16,6 +17,7 @@ module.exports = async ({
   const alreadyExist = await Pokemon.findOne({ where: { name: min } });
   if (alreadyExist) throw Error("El pokemon ya existe en la base de datos");
   const pokemon = await Pokemon.create({
+    userId,
     name: min,
     image,
     hp,

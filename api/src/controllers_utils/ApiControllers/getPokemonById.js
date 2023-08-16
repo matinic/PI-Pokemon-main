@@ -1,5 +1,4 @@
 const getOnePokemon = require("../getOnePokemon");
-const getPokemonByIdDb = require('../DbControllers/getPokemonByIdDb')
 const axios = require("axios");
 
 module.exports = async function getPokemonById(id) {

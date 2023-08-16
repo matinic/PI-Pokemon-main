@@ -19,14 +19,14 @@ export default function Validations(input){
     if( input.hp > 120 ) error.hp = 'Valor maximo 120'
     if( input.attack > 120 ) error.attack = 'Valor maximo 120'
     if( input.deffense > 120  ) error.deffense = 'Valor maximo 120'
-    if( input.speed > 120 ) error.speed = 'Valor maximo 120'
+    if( input.speed > 150 ) error.speed = 'Valor maximo 150'
     if( input.height > 120 ) error.height = 'Valor maximo 120'
     if( input.weight > 999 ) error.weight = 'Valor maximo 999'
         
     if( input.hp < 1 ) error.hp = 'Valor minimo 1'
     if( input.attack < 1 ) error.attack = 'Valor minimo 1'
     if( input.deffense < 1 ) error.deffense = 'Valor minimo 1'
-    if( input.speed < 1  ) error.speed = 'Valor minimo 1'
+    if( input.speed < 10  ) error.speed = 'Valor minimo 10'
     if( input.height < 1 ) error.height = 'Valor minimo 1'
     if( input.weight  < 1 ) error.weight = 'Valor minimo 1'
 

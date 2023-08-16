@@ -1,23 +1,46 @@
-.formContainer{
+.bodyFormContainer{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%
+}
+.form{
+    margin-top: 30px;
+    width: 550px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    background-color: #F5B357;
+    padding: 10px;
+    border-radius: 20px;
+}
+.form h1{
+    margin: auto;
+}
+.nameContainer{
+    width: 100%;
     align-items: center;
-    margin:auto;
-    margin-top: 10px;
-    background-color: rgb(98, 24, 236);
-    width: 600px;
-    border-radius: 10px;
+    justify-content: center;
 }
-.formContainer button {
-    margin: 10px;
 
+.formStatsContainer{
+    display: flex;
+    margin-top: 10px;
+    border-radius: 10px;
+    color: #383838  ;
 }
+
+.statsColumnWidth{
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
 .typesContainer{
     display: flex;
     margin: 10px;
 }
 .error{
-    color: rgb(255, 255, 255);
+    color: #F5B357 ;
 }
 .previewImage{
     display: flex;
@@ -43,19 +66,46 @@
 }
 .errorStatusInput{
     display:flex;
-    flex-direction: column;
-    background-color: rgb(238, 116, 161);
+    background-color:#E5573E ;
     width: 100%;
-    margin: 5px;
     align-items: center;
     justify-content: center;
 }
 .correctStatusInput{
     display:flex;
-    flex-direction: column;
-    background-color: rgb(17, 169, 126);
+    background-color: #F5EEA9   ;
     width: 100%;
-    margin: 5px;
     align-items: center;
     justify-content: center;
 }
+.formTypes{
+    display: flex;
+    padding: 10px;
+    justify-content: space-around;
+}
+.formStatsContainer input{
+    margin: 10px;
+    width: 150px;
+}
+.imageBlock{
+    display: flex;
+}
+.submitButton{
+    width: 60px;
+    margin: auto;
+    margin-top: 15px;
+}
+.errorAncla{
+    height:40px;
+    padding: 5px;
+}
+.errorAncla h5 {
+    margin: 0px;
+    color: #383838;
+}
+
+
+/*#F5EEA9    amarillo*/
+/*#E5573E    rojo*/
+/*#383838    gris*/
+/*#F5B357   naranja*/

@@ -105,3 +105,9 @@ dist
 
 # package-lock.json
 package-lock.json
+
+# jwtGenerator
+jwtGenerator.js
+
+#keyGenerator
+keyGenerator.js

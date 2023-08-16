@@ -1,4 +1,4 @@
-const putById = require("../controllers_utils/DbControllers/putById");
+const putById = require("../../controllers_utils/DbControllers/pokemonDb/updatePokemon");
 
 module.exports = async(req,res)=>{
     try {

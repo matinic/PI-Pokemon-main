@@ -1,4 +1,4 @@
-const deleteDb = require("../controllers_utils/DbControllers/deleteDb")
+const deleteDb = require("../../controllers_utils/DbControllers/pokemonDb/deleteDb")
 
 module.exports= async(req,res)=>{
     const {id} = req.params;

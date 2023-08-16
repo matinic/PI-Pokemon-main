@@ -1,5 +1,5 @@
-const getPokemonByName = require("../controllers_utils/ApiControllers/getPokemonByName");
-const getPokemonByNameDb = require("../controllers_utils/DbControllers/getPokemonByNameDb");
+const getPokemonByName = require("../../controllers_utils/ApiControllers/getPokemonByName");
+const getPokemonByNameDb = require("../../controllers_utils/DbControllers/pokemonDb/getPokemonByNameDb");
 
 module.exports = async (req, res) => {
   const { name } = req.query;

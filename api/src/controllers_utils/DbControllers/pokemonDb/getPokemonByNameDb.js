@@ -1,9 +1,13 @@
-const { Pokemon, Type } = require("../../db");
-module.exports = async function getAllPokemonsDb() {
+const { Pokemon, Type, Op } = require("../../../db");
+
+module.exports = async (name) => {
+  const min = name.toLowerCase();
   const pokemons = await Pokemon.findAll({
+    where: {
+      name: { [Op.startsWith]: min },
+    },
     include: {
       model: Type,
-      as: "types",
       attributes: ["name"],
       through: { attributes: [] },
     },

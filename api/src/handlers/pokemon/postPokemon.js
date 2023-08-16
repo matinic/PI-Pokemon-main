@@ -1,15 +1,13 @@
-const postPokemon = require("../controllers_utils/DbControllers/postPokemon");
+const postPokemon = require("../../controllers_utils/DbControllers/pokemonDb/postPokemon");
 
 module.exports = async (req, res) => {
   const { name, image, hp, attack, deffense, types } = req.body;
-  if ((!name, !image, !hp, !attack, !deffense, !types)) {
+  if ((!name || !image || !hp || !attack || !deffense || !types)) {
     return res.status(404).json({
       message: "Faltan los datos necesarios para completar el pokemon",
     });
   } else if (!types.length) {
-    res
-      .status(404)
-      .json({ messagge: "El pokemon debe tener al menos un type" });
+    res.status(404).json({ messagge: "El pokemon debe tener al menos un type" });
   }
   try {
     const postedPokemon = await postPokemon(req.body);
