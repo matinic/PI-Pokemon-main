@@ -1,10 +1,18 @@
 import { useDispatch, useSelector } from "react-redux"
 import { actualRender, getAllPokemonsByType, getPokemonsByType, orderAZ, orderLessPw, orderMostPw, orderZA, selectedOp,actualPage } from "../../redux/actions"
 import style from './FilterBar.module.css'
+import { useEffect } from "react"
+import { getTypes } from "../../redux/actions"
 
 export default function FilterBar(){
 
     const dispatch = useDispatch()
+    const {types} = useSelector(state => state)
+
+    useEffect(()=>
+       dispatch(getTypes())    
+    ,[])
+
 
     const {selectedOptions} = useSelector(state => state)
 
@@ -56,33 +64,18 @@ export default function FilterBar(){
 
             <select name="origen" onChange={handlerFilterOrigin} value={selectedOptions.origen}>
                 <option value="API">API</option>
-                <option value="DB">Base de Datos</option>
+                <option value="DB">DATA BASE</option>
+                <option value="ALL">ALL</option>
             </select>
             <label htmlFor="">FILTRAR POR TIPO </label>
 
+
             <select name="type"  onChange={handlerFilterOrigin} value={selectedOptions.type}>
-                <option value="all" >All</option>
-                <option value="normal" >normal</option>
-                <option value="fighting">fighting</option>
-                <option value="flying" >flying</option>
-                <option value="poison">poison</option>
-                <option value="ground">ground</option>
-                <option value="rock" >rock</option>
-                <option value="bug" >bug</option>
-                <option value="ghost" >ghost</option>
-                <option value="steel">steel</option>
-                <option value="fire" >fire</option>
-                <option value="water" >water</option>
-                <option value="grass" >grass</option>
-                <option value="electric" >electric</option>
-                <option value="psychic" >psychic</option>
-                <option value="ice" >ice</option>
-                <option value="dragon" >dragon</option>
-                <option value="dark" >dark</option>
-                <option value="fairy" >fairy</option>
-                <option value="unknown" >unknown</option>
-                <option value="shadow">shadow</option>
+                {
+                   types?.map((type,index) => <option value={type} key={index}>{type}</option>)
+                } 
             </select>
+
             <label htmlFor="">ORDENAR</label>
 
             <select name="alphabetical" onChange={handlerOrder} value={selectedOptions.alphabetical}>

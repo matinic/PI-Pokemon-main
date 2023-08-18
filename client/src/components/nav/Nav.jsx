@@ -3,7 +3,7 @@ import FilterBar from "../filterBar/FilterBar"
 import { Link, useLocation } from "react-router-dom"
 import style from "./Nav.module.css"
 
-export default function Nav(){
+export default function Nav({onSearch}){
     const { pathname } = useLocation()
     return(
         <div className={style.navContainer}>
@@ -15,7 +15,7 @@ export default function Nav(){
             {
             pathname !== '/newpoke'?
             <div className={style.searchContainer}>
-                <SearchBar/>
+                <SearchBar onSearch={onSearch}/>
                 <FilterBar/>
             </div>
             :null

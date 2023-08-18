@@ -15,6 +15,9 @@ export const ERROR = 'ERROR';
 export const ACTUAL_RENDER = 'ACTUAL_RENDER';
 export const SELECTED_OP = 'SELECTED_OP';
 export const ACTUAL_PAGE = 'ACTUAL_PAGE';
+export const GET_TYPES = 'GET_TYPES';
+export const WIPE_POKEMON = 'WIPE_POKEMON';
+export const SEARCH_PARAMETER = 'SEARCH_PARAMETER';
 
 
 

@@ -1,4 +1,6 @@
-import { ACTUAL_PAGE, ACTUAL_RENDER, ERROR, GET_ALL_POKEMONS_TYPES, GET_POKEMONS, GET_POKEMONS_DB, GET_POKEMON_BY_TYPE, GET_POKEMON_ID, GET_POKEMON_NAME, ORDER_AZ, ORDER_LESSPW, ORDER_MOSTPW, ORDER_ZA, POKEMONS_AMOUNT, POST_POKEMON, SELECTED_OP, WIPE_ERROR } from "./types";
+import { actualPage } from "./actions";
+import { ACTUAL_PAGE, ACTUAL_RENDER, ERROR, GET_ALL_POKEMONS_TYPES, GET_POKEMONS, GET_POKEMONS_DB, GET_POKEMON_BY_TYPE, GET_POKEMON_ID, GET_POKEMON_NAME, GET_TYPES, ORDER_AZ, ORDER_LESSPW, ORDER_MOSTPW, ORDER_ZA, POKEMONS_AMOUNT, POST_POKEMON, SEARCH_PARAMETER, SELECTED_OP, WIPE_ERROR, WIPE_POKEMON } from "./types";
+const uuid = require('uuid')
 
 const initialState = {
     allPokemons: [],
@@ -8,26 +10,30 @@ const initialState = {
     actual: '',
     selectedOptions:{},
     pokemon:{},
-    pokemonByName: {},
+    pokemonByName: '',
     postedPokemon: {},
-    actualPage: 1,
+    actualPage: {
+        home: 1,
+        searchBar: 1,
+    },
     error: '',
+    types: ['all'],
+    parameter: '',
 }
 
 export default function reducer(state=initialState,{type,payload}){
     switch(type){
         case GET_POKEMONS:
+            const fromAPI = payload.filter(pokemon => !uuid.validate(pokemon.id))
+            const fromDb = payload.filter(pokemon => uuid.validate(pokemon.id))
             return {
                 ...state,
-                allPokemons: payload,
-                allPokemonsReserve: payload,
+                allPokemons: fromAPI,
+                allPokemonsReserve: fromAPI,
+                allPokemonsDb: fromDb,
+                allPokemonsDbReserve: fromDb,
             }
-        case GET_POKEMONS_DB:
-            return {
-                ...state,
-                allPokemonsDb: payload,
-                allPokemonsDbReserve: payload,
-            }
+
         case ACTUAL_RENDER:
             return{
                 ...state,
@@ -90,9 +96,10 @@ export default function reducer(state=initialState,{type,payload}){
                 postedPokemon: payload,
             }
         case ACTUAL_PAGE:
+            const {father,value} = payload
             return{
                 ...state,
-                actualPage: payload,
+                actualPage: {...state.actualPage, [father]:value},
             }
         case ERROR:
             return {
@@ -104,21 +111,24 @@ export default function reducer(state=initialState,{type,payload}){
                 ...state,
                 error: payload,
             }
+        case GET_TYPES:
+            return{
+                ...state,
+                types: [...state.types,...payload]
+            }
+        case WIPE_POKEMON:
+            return{
+                ...state,
+                pokemon: payload,
+            }
+        case SEARCH_PARAMETER:
+            return{
+                ...state,
+                parameter: payload
+            }
         default:
             return state
     }
 }
 
 
-/*
-allPokemons.filter(pokemons =>
-  Array.isArray(obj) ? obj.includes(name) : obj.name.includes(searchString)
-);
-*/
-/*
-const filteredObj = {
-    data: obj.data.filter(item =>
-      Array.isArray(item) ? item.includes(searchString) : item.name.includes(searchString)
-    ),
-  }
-  */

@@ -1,5 +1,6 @@
-import { ACTUAL_PAGE, ACTUAL_RENDER, ERROR, GET_ALL_POKEMONS_TYPES, GET_POKEMONS, GET_POKEMONS_DB, GET_POKEMON_BY_TYPE, GET_POKEMON_ID, GET_POKEMON_NAME, ORDER_AZ, ORDER_LESSPW, ORDER_MOSTPW, ORDER_ZA, POKEMONS_AMOUNT, POST_POKEMON, SELECTED_OP, WIPE_ERROR } from "./types";
+import { ACTUAL_PAGE, ACTUAL_RENDER, ERROR, GET_ALL_POKEMONS_TYPES, GET_POKEMONS, GET_POKEMONS_DB, GET_POKEMON_BY_TYPE, GET_POKEMON_ID, GET_POKEMON_NAME, GET_TYPES, ORDER_AZ, ORDER_LESSPW, ORDER_MOSTPW, ORDER_ZA, POKEMONS_AMOUNT, POST_POKEMON, SEARCH_PARAMETER, SELECTED_OP, WIPE_ERROR, WIPE_POKEMON } from "./types";
 import axios from 'axios'
+
 
 export const getPokemons = ()=>{
     return async (dispatch)=>{
@@ -7,7 +8,7 @@ export const getPokemons = ()=>{
             const res = (await axios.get('http://localhost:3001/pokemons/')).data;
             return dispatch({
                 type: GET_POKEMONS,
-                payload: res['pokes'],
+                payload: res,
             })
         }catch(error){
             return dispatch({
@@ -17,22 +18,7 @@ export const getPokemons = ()=>{
         }
     }
 } 
-export const getPokemonsDb = ()=>{
-    return async (dispatch)=>{
-        try{
-            const res = (await axios.get('http://localhost:3001/pokemons/')).data;
-            return dispatch({
-                type: GET_POKEMONS_DB,
-                payload: res['pokesDb'],
-            })
-        }catch(error){
-            return dispatch({
-                type: ERROR,
-                payload: error.message,
-            })
-        }
-    }
-} 
+
 export const getPokemonById = (id)=>{
     return async (dispatch)=>{
         try{
@@ -65,6 +51,23 @@ export const getPokemonByName = (name)=>{
         }
     }
 }
+export const getTypes = ()=>{
+    return async (dispatch)=>{
+    try {
+            const res = (await axios.get('http://localhost:3001/types')).data
+            return dispatch({
+                type: GET_TYPES,
+                payload: res
+            })
+        }   
+        catch (error) {
+            return dispatch({
+                type: ERROR,
+                payload: error.message
+            })
+        }
+    }
+}    
 export const actualRender = (val)=>{
     return{
         type: ACTUAL_RENDER,
@@ -136,9 +139,24 @@ export const orderZA = ()=>{
         payload: null,
     }
 }
-export const actualPage = (value)=>{
+export const wipePokemon = ()=>{
+    return{
+        type: WIPE_POKEMON,
+        payload: {},
+    }
+}
+export const actualPage = (value,father)=>{
     return{
         type: ACTUAL_PAGE,
-        payload: value,
+        payload: {
+            father,
+            value
+        },
+    }
+}
+export const searchParameter = (value) =>{
+    return {
+        type: SEARCH_PARAMETER,
+        payload: value
     }
 }
