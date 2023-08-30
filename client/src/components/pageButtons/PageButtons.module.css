@@ -1,0 +1,33 @@
+.buttonPagesContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(56, 56, 56);
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+}
+
+.pageButtons {
+  padding: 5px;
+  background: none;
+  border: none;
+  color: #f5eea9;
+  padding: 12px;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  margin: 5px;
+  border-radius: 5px;
+}
+.pageButtons:hover {
+  transform: scale(1.12);
+  background-color: #f5eea9;
+  color: rgb(56, 56, 56);
+}
+.actualPageNumberButton {
+  background: #f5eea9;
+  padding: 12px;
+  color: rgb(56, 56, 56);
+  border-radius: 5px;
+}

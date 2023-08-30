@@ -1,9 +1,20 @@
 import style from './Detail.module.css'
+import ReturnBack from "../returnBack/ReturnBack";
+import { useNavigate } from 'react-router-dom';
+
+
 export default function Detail({card}){
+
+    const navigate = useNavigate()
+
     return(
-        <div className={style.container}>  
+        <div className={style.container}> 
+
             <div className={style.cardContainer}>
-                <h1 className={style.name}>{card.name?.toUpperCase()}</h1>
+                <div className={style.name}>
+                    <ReturnBack forExecution={() => navigate(-1)}/>
+                    <h1>{card.name?.toUpperCase()}</h1>
+                </div>
 
                 <img src={card.image} alt="" />
                 <div className={style.statsContainer}>

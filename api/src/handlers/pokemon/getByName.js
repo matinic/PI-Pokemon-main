@@ -4,7 +4,7 @@ const getPokemonByNameDb = require("../../controllers_utils/DbControllers/pokemo
 module.exports = async (req, res) => {
   const { name } = req.query;
   if (!name)
-    res
+    return res
       .status(400)
       .json({ message: "Faltan datos requeridos para realizar la búsqueda" });
   try {

@@ -2,7 +2,7 @@ const postPokemon = require("../../controllers_utils/DbControllers/pokemonDb/pos
 
 module.exports = async (req, res) => {
   const { name, image, hp, attack, deffense, types } = req.body;
-  if ((!name || !image || !hp || !attack || !deffense || !types)) {
+  if (!name || !image || !hp || !attack || !deffense || !types) {
     return res.status(404).json({
       message: "Faltan los datos necesarios para completar el pokemon",
     });

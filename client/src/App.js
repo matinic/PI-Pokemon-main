@@ -7,31 +7,26 @@ import {Routes, Route, useLocation} from 'react-router-dom'
   import Home from './components/home/Home.jsx';
   import NewPoke from './components/newPoke/NewPoke.jsx';
   import DetailById from './components/detailById/DetailById'
-  import DetailByName from './components/detailByName/DetailByName'
+
 import { useState } from 'react';
  
 
 function App() {
+  
    const { pathname } = useLocation();
     const [search,setSearch] = useState(false)
 
-    const onSearch = (state)=>{
-      setSearch(state)
-    }
-
-    console.log('APP')
   return (
     <div>
       
       {
-        pathname !== '/' ? <Nav onSearch = {onSearch}/> : null
+        pathname !== '/' ? <Nav setSearch = {setSearch} search={search}/> : null
       }
 
       <Routes>
         <Route path="/" element={<Landing/>}/>
-        <Route path="/home" element={<Home search={search} onSearch={onSearch}/>}/>
+        <Route path="/home" element={<Home search={search} setSearch={setSearch}/>}/>
         <Route path="/detail/:id" element={<DetailById />}/>
-        <Route path="/detail/name/:name" element={<DetailByName />}/>
         <Route path="/newpoke" element={<NewPoke/>}/>
       </Routes>
     </div>

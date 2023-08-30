@@ -1,6 +1,6 @@
 .container{
     width: 100%;
-    height: 90vh;
+    height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,9 +15,11 @@
     background: #F5B357;
     border-radius: 10px;
 }
+.cardContainer ReturnBack {
+    justify-content: flex-start;
+}
 .name{
     display: flex;
-    justify-content: center;
     width: 100%;
     background: #E5573E;
     color:#F5EEA9;
@@ -27,6 +29,9 @@
     align-items: center;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+}
+.name h1 {
+    margin: auto;
 }
 img {
     width: 50%;

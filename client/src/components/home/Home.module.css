@@ -1,7 +1,14 @@
-.CardsContainer{
-    width: 100%;
-    height: 100%;
-    background-color: #F5EEA9;
-    border: 1px black;
-
+.CardsContainer {
+  width: 100%;
+  height: 100%;
+  background-color: #f5eea9;
+  border: 1px black;
+}
+.searchParameter {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.searchParameter h4 {
+  margin: 0px;
 }
