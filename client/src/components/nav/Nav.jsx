@@ -11,7 +11,7 @@ export default function Nav({setSearch, search}){
             <div className={style.navButtons}>
                 <Link to="/"><button>Landing</button></Link>
                 <Link to="/home"><button>Home</button></Link>
-                <Link to="/newpoke"><button>Crear</button></Link>
+                <Link to="/newpoke"><button>Create</button></Link>
             </div>
             {
             location.pathname !== '/newpoke'?
@@ -20,11 +20,11 @@ export default function Nav({setSearch, search}){
                 <SearchBar setSearch={setSearch}/>
                 
                 <FilterBar context = {search ? 'searchMode' : 'home'}/> 
-                
                
             </div>
-            :null
+            :<h1 name='title'>CREATE POKEMON</h1>
             }
+            
             <div className={style.vacio}></div>
         </div>
     )

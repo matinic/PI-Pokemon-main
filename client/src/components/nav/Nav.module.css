@@ -1,3 +1,8 @@
+h1[name="title"] {
+    color: #f5eea9;
+    margin: 0 0 20px;
+    text-align: center;
+  }
 .navContainer{
     height: 100px;
     width: 100%;

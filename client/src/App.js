@@ -27,7 +27,7 @@ function App() {
         <Route path="/" element={<Landing/>}/>
         <Route path="/home" element={<Home search={search} setSearch={setSearch}/>}/>
         <Route path="/detail/:id" element={<DetailById />}/>
-        <Route path="/newpoke" element={<NewPoke/>}/>
+        <Route path="/newpoke" element={<NewPoke />}/>
       </Routes>
     </div>
   );

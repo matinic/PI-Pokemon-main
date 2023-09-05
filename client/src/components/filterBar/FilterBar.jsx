@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { actualPage, filterAction, selectedOptions } from "../../redux/actions"
 import style from './FilterBar.module.css'
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { getTypes } from "../../redux/actions"
 const {validate} = require('uuid')
 
@@ -9,31 +9,31 @@ export default function FilterBar({context}){
 
 const dispatch = useDispatch()
 
-    const {
-        types,
-        filterOptions:{[context]:options},
-        original:{[context]:inmutable}
-    } = useSelector(state => state)
+const {
+    types,
+    filterOptions:{[context]:options},
+    original:{[context]:inmutable}
+} = useSelector(state => state)
 
-const Filter = function(state){
-    this.state = state
+const Filter = function(st){
+    this.st = st
 }
 Filter.prototype.origin = function (value){
-    if(value === 'created') this.state = this.state.filter(({id}) => validate(id))
+    if(value === 'created') this.st = this.st.filter(({id}) => validate(id))
 }
 Filter.prototype.type = function (value){
-    if(value !== 'all') this.state = this.state.filter(({types}) => types.includes(value))
+    if(value !== 'all') this.st = this.st.filter(({types}) => types.includes(value))
 }
 Filter.prototype.alphabetical = function (value){
-    if(value === 'az') this.state = this.state.sort((a,b) => a.name.localeCompare(b.name))
-    if(value === 'za') this.state = this.state.sort((a,b) => b.name.localeCompare(a.name))
+    if(value === 'az') this.st = this.st.sort((a,b) => a.name.localeCompare(b.name))
+    if(value === 'za') this.st = this.st.sort((a,b) => b.name.localeCompare(a.name))
 }
 Filter.prototype.attack = function (value){
-    if(value === 'MostPW') this.state = this.state.sort((a,b) => a.attack - b.attack)
-    if(value === 'LessPW') this.state = this.state.sort((a,b) => b.attack - a.attack)
+    if(value === 'MostPW') this.st = this.st.sort((a,b) => b.attack - a.attack)
+    if(value === 'LessPW') this.st = this.st.sort((a,b) => a.attack - b.attack)
 }
 
-const newFilter = new Filter(inmutable)
+const newFilter = new Filter([...inmutable])
 
 const filterHandler = (e)=>{
     const {name:filter,value:option} = e.target
@@ -45,13 +45,12 @@ useEffect(()=>{
     newFilter.type(options.type)
     newFilter.alphabetical(options.alphabetical)
     newFilter.attack(options.attack)
-    dispatch(filterAction(newFilter.state,context))
+    dispatch(filterAction(newFilter.st,context))
 },[options])
 
 useEffect(()=>
-       dispatch(getTypes())    
+    {if(types.length < 2) dispatch(getTypes())}
 ,[])
-
 
     return(
         <div className={style.filterContainer}>
@@ -61,7 +60,7 @@ useEffect(()=>
                 <option value="all">ALL</option>
                 <option value="created">CREATED</option>
             </select>
-            <label htmlFor="">FILTRAR POR TIPO </label>
+            <label htmlFor="">FILTER BY TYPE</label>
 
 
             <select name="type" onChange={filterHandler} value={options.type}>
@@ -70,7 +69,7 @@ useEffect(()=>
                 } 
             </select>
 
-            <label htmlFor="">ORDENAR</label>
+            <label htmlFor="">ORDER</label>
 
             <select name="alphabetical" onChange={filterHandler}>
                 <option>Alphabetic</option>

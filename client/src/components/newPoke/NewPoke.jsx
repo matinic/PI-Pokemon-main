@@ -1,90 +1,82 @@
 import styles from "./NewPoke.module.css";
-import PokeTypes from "../pokeTypes/PokeTypes";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { postPokemon } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Validations from "./Validations";
 import { useNavigate } from "react-router-dom";
-import invalid from "../../images/IMAGEN_INVALIDA.jpg";
+import paste from "./../../images/paste.png"
+import noimage from "./../../images/no-image.jpg"
+import { getTypes } from "../../redux/actions";
 //import ValidationsName from './ValidationsName';
 
-export default function NewPoke(params) {
+export default function NewPoke() {
   const [error, setError] = useState({});
   const dispatch = useDispatch();
-  const newPokemon = useSelector((state) => state.postedPokemon);
+  const { types } = useSelector((state) => state);
   const [form, setForm] = useState({
     name: "",
     image: "",
-    hp: 0,
-    attack: 0,
-    deffense: 0,
-    speed: 0,
-    height: 0,
-    weight: 0,
+    hp: 1,
+    attack: 1,
+    deffense: 1,
+    speed: 1,
+    height: 1,
+    weight: 1,
     types: [],
   });
 
   useEffect(() => {
-    setError(Validations({ ...form }));
+    setError(Validations(form))
+    if(types.length < 2) dispatch(getTypes())
   }, [form]);
-  const navigate = useNavigate();
-  const onChangeHandler = (ev) => {
-    const { name, value } = ev.target;
-    if (name.includes("type")) {
-      switch (name) {
-        case "type1":
-          let newTypes1 = [...form.types];
-          newTypes1[0] = value;
-          setForm({
-            ...form,
-            types: newTypes1,
-          });
-          break;
-        case "type2":
-          let newTypes2 = [...form.types];
-          newTypes2[1] = value;
-          setForm({
-            ...form,
-            types: newTypes2,
-          });
-          break;
+
+  const statsName = ["hp", "attack", "deffense", "speed", "height", "weight"];
+
+  console.log(form)
+
+  const formHandler = (ev) => {
+    let { name, value, checked } = ev.target;
+    if (name === "types") {
+      if(checked){
+        setForm({
+          ...form,
+          types: [...form.types, value],
+        });
+      }else{
+        let typesCopy = [...form.types]
+        typesCopy.splice(form.types.indexOf(value),1)
+        setForm({
+          ...form,
+          types: typesCopy
+        })
       }
-    } else {
-      let parsedValue = value;
-      if (!isNaN(value)) {
-        parsedValue = Number(value);
-      }
+    }
+    if ( statsName.includes(name) && value ) {
+      value = parseInt(value)
       setForm({
         ...form,
-        [name]: parsedValue,
+        [name]: value,
+      });
+    } else if (name !== 'types'){
+      setForm({
+        ...form,
+        [name]: value,
       });
     }
-    if (name !== "image") {
-      if (!isNaN(value) && form[ev.target.name] !== form.weight) {
-        if (value < 1) {
-          setForm({ ...form, [name]: 0 });
-        }
-        if (value > 120) {
-          setForm({ ...form, [name]: 121 });
-        }
-      } else if (!isNaN(value) && form[ev.target.name] === form.weight) {
-        if (value < 1) {
-          setForm({ ...form, [name]: 0 });
-        }
-        if (value > 999) { 
-          setForm({ ...form, [name]: 1000 });
-        }
-      }
+    if(name === 'image'){
+      setForm({
+        ...form,
+        image: value
+      })
     }
-    setError(Validations({ ...form }));
   };
-  console.log(form);
+
   const postPokemonHnadler = (ev) => {
     ev.preventDefault();
     dispatch(postPokemon(form));
     alert("pokemon creado");
   };
-  const handlerPaste = async () => {
+const handlerPaste = async () => {
     const textCopied = await navigator.clipboard.readText();
     setForm({
       ...form,
@@ -92,188 +84,116 @@ export default function NewPoke(params) {
     });
   };
 
-  return (
-    <div className={styles.bodyFormContainer}>
-      <div className={styles.form}>
-        <h1>CREA TU NUEVO POKEMON</h1>
+//inputs de estadisticas
+const stats = statsName.map((stats) => (
+    <div name='stat' key={stats}>
+      <h4 name="hp">{stats.toUpperCase()}</h4>
+      <input
+        type="number"
+        onChange={formHandler}
+        name={stats}
+        value={form[stats]}
+        min="1"
+        error={Boolean(error[stats]).toString()}
+      />
+      <h5
+        className={styles.errorMessage} 
+        viewerror={ Boolean(error[stats]).toString() }
+      >{error[stats]}</h5>
+    </div>
+))
+
+//inputs checkboxes
+const checkBox = types.map((type, index) => (
+    <label key={index} className={styles.checkBox}
+      error = { Boolean(error.types && form.types.length < 1).toString() }
+      error2  = { Boolean(error.types && form.types.includes(type)).toString() }
+      correct = { Boolean(!error.types && form.types.includes(type)).toString() }
+     >
+      <input 
+        type="checkbox" 
+        name='types'
+        value={type}
+        onChange={formHandler}
+      />
+      <span className={styles.checkmark}></span>
+      {type}
+    </label>
+))
+checkBox.shift()
+
+const buttonStyle = {
+  backgroundImage: `url(${paste})`,
+}
+
+
+return (
+    <div className={styles.body}>
+      <form className={styles.form}>
 
         <div className={styles.nameContainer}>
-          <div
-            className={
-              error.name ? styles.errorStatusInput : styles.correctStatusInput
-            }
-          >
-            <h3>*Nombre</h3>
-            <input onChange={onChangeHandler} name="name" type="text" />
-          </div>
-          <div className={styles.errorAncla}>
-            <h5 className={styles.error}>{error.name}</h5>
-          </div>
-        </div>
-
-        <div className={styles.formStatsContainer}>
-          <div className={styles.statsColumnWidth}>
-            <div>
-              <div
-                className={
-                  error.hp ? styles.errorStatusInput : styles.correctStatusInput
-                }
-              >
-                <h3 name="hp">*Vida </h3>
-                <input
-                  type="number"
-                  onChange={onChangeHandler}
-                  name="hp"
-                  value={form.hp}
-                  className={styles.necessaryInputs}
-                />
-              </div>
-              <div className={styles.errorAncla}>
-                <h5 className={styles.error}>{error.hp}</h5>
-              </div>
-            </div>
-
-            <div>
-              <div
-                className={
-                  error.attack
-                    ? styles.errorStatusInput
-                    : styles.correctStatusInput
-                }
-              >
-                <h3>*Ataque </h3>
-                <input
-                  type="number"
-                  onChange={onChangeHandler}
-                  name="attack"
-                  value={form.attack}
-                />
-              </div>
-              <div className={styles.errorAncla}>
-                <h5 className={styles.error}>{error.attack}</h5>
-              </div>
-            </div>
-
-            <div>
-              <div
-                className={
-                  error.deffense
-                    ? styles.errorStatusInput
-                    : styles.correctStatusInput
-                }
-              >
-                <h3>*Defensa</h3>
-                <input
-                  type="number"
-                  onChange={onChangeHandler}
-                  name="deffense"
-                  value={form.deffense}
-                />
-              </div>
-              <div className={styles.errorAncla}>
-                <h5 className={styles.error}>{error.deffense}</h5>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.statsColumnWidth}>
-            <div>
-              <div className={styles.correctStatusInput}>
-                <h3>Velocidad</h3>
-                <input
-                  type="number"
-                  onChange={onChangeHandler}
-                  name="speed"
-                  value={form.speed}
-                />
-              </div>
-              <div className={styles.errorAncla}>
-                <h5 className={styles.error}>{error.speed}</h5>
-              </div>
-            </div>
-
-            <div>
-              <div className={styles.correctStatusInput}>
-                <h3>Altura</h3>
-                <input
-                  type="number"
-                  onChange={onChangeHandler}
-                  name="height"
-                  value={form.height}
-                />
-              </div>
-              <div className={styles.errorAncla}></div>
-            </div>
-
-            <div>
-              <div className={styles.correctStatusInput}>
-                <h3>Peso</h3>
-                <input
-                  type="number"
-                  onChange={onChangeHandler}
-                  name="weight"
-                  value={form.weight}
-                />
-              </div>
-              <div className={styles.errorAncla}></div>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div
-            className={
-              error.types ? styles.errorStatusInput : styles.correctStatusInput
-            }
-          >
-            <div className={styles.formTypes}>
-              <PokeTypes id="1" onChange={onChangeHandler} disabled={false} />
-              <PokeTypes id="2" onChange={onChangeHandler} disabled={false} />
-            </div>
-          </div>
-          <div className={styles.errorAncla}>
-            <h5 className={styles.error}>{error.types}</h5>
-          </div>
-        </div>
-
-        <div>
-          <div
-            className={
-              error.image ? styles.errorStatusInput : styles.correctStatusInput
-            }
-          >
-            {form.image ? (
-              <img
-                onError={(ev) => {
-                  ev.target.src = invalid;
-                  setError({ ...error, image: "imagen invalida" });
-                }}
-                src={form.image}
-                className={styles.viewImage}
-              />
-            ) : (
-              <div className={styles.previewImage}>
-                <h5>IMAGEN PREVIEW</h5>
-              </div>
-            )}
-            <button onClick={handlerPaste}>Pegar Link</button>
+            <h4>NAME</h4>
             <input
-              onChange={onChangeHandler}
-              name="image"
-              type="text"
-              value={form.image}
+                type="text"
+                onChange={formHandler}
+                name='name'
+                value={form.name}
+                error={Boolean(error.name).toString()}
             />
-          </div>
+            <div style={{display:'flex', justifyContent:'space-between'}}>
+              <h5 className={styles.errorMessage} viewerror={ Boolean(error.name).toString() }>{error.name}</h5>
+              <h5 style={!error.name ? {color:'#F5EEA9'} : null} className={styles.errorMessage}>{form.name.length}</h5>
+            </div>
         </div>
 
-        <button
-          onClick={postPokemonHnadler}
-          disabled={Object.keys(error).length >= 4}
-          className={styles.submitButton}
-        >
-          CREAR
+        <div className={styles.statsContainer}>
+          {stats}
+        </div>
+          
+
+        <div className={styles.typesContainer}>
+          <h4>TYPES</h4>
+          <div className={styles.checkboxContainer}>
+            {checkBox}
+          </div>
+          <h5 className={styles.errorMessage} viewerror={ Boolean(error.types).toString() }>{error.types}</h5>
+        </div>
+
+
+        <div className={styles.imageContainer}>
+          <h4>IMAGE</h4>
+
+          
+              <div className={styles.upImgContainer}>
+              <div className={styles.preview}>
+                <span className={styles.top}></span>
+                {!error.image ? <img 
+                      src={form.image}
+                      className={styles.image}
+                    />
+                    :
+                    <img 
+                      src={noimage}
+                      className={styles.image}
+                    />
+                  }
+                <span className={styles.bottom}></span>
+              </div>   
+
+              <div className={styles.uploadInputContainer}>
+                <span className={styles.button } style={ buttonStyle } tooltip='paste link' onClick={handlerPaste} name='image'></span>
+                <input type="text" placeholder="paste link" value={form.image} onChange={formHandler} name="image"/>
+              </div>
+          
+            </div>
+
+        </div>
+
+        <button onClick={postPokemonHnadler} className={styles.submitButton} disabled={Boolean(Object.keys(error).length)}>
+          CREATE
         </button>
-      </div>
+
+      </form>
     </div>
   );
 }

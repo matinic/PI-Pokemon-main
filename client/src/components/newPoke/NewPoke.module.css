@@ -1,109 +1,241 @@
-.bodyFormContainer{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%
+.body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
-.form{
-    margin-top: 30px;
-    width: 550px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: #F5B357;
-    padding: 10px;
-    border-radius: 20px;
+
+.form {
+  margin-top: 10px;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  border-radius: 20px;
+  background-color: #383838;
+  color: #f5eea9;
 }
-.form h1{
-    margin: auto;
+.form input {
+  border: none;
+  height: 30px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #f5eea9;
+}
+.form input[error=true]{
+  background-color:#e5573e;
+  color:#f5eea9
+}
+.form input[name="name"] {
+  width: 100%;
+}
+.form h4 {
+  margin: 0px;
+}
+.statsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.checkboxContainer {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.checkBox{
+  width: 100px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold
+}
+.checkBox input {
+  cursor: pointer;
+  display: none;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  height: 25px;
+  width: 25px;
+  background-color:#f5eea9;
+  border-radius: 3px;
+  margin-right: 5px;
+  width: 20px; 
+  height: 20px;
+}
+.checkBox:hover input ~ .checkmark{
+  background-color: #ccc;
+}
+.checkmark:after {
+  content: "";
+  display: none;
+}
+.checkBox input:checked ~ .checkmark:after {
+  display: flex;
+}
+.checkmark:after {
+  width: 7px;
+  height: 14px;
+  margin-left: 5px;
+  border: solid  #383838 ;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.checkBox[error="true"], .checkBox[error2="true"]{
+  color: #e5573e;
+}
+.checkBox[correct="true"]{
+  color: #F5B357 ;
+}
+.imageBlock {
+  display: flex;
+}
+
+.submitButton{
+  background-color: #F5B357;
+  font-weight: bold;
+  margin-top: 20px;
+  width: 100px;
+  height: 25px;
+  border: none;
+  border-radius: 5px;
+}
+.upImgContainer{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.preview{
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+.top, .bottom{
+  width: 100%;
+  position: absolute;
+  height: 10px;
+}
+.bottom{
+  bottom: 0px;
+  transform:rotate(180deg)
+}
+
+.top::after, .bottom::after{
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 10px;
+  height: 10px;
+  border:solid #F5EEA9;
+  border-width: 3px 3px 0px 0px;
+  border-top-right-radius: 10px;
+}
+.top::before, .bottom::before{
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 10px;
+  height: 10px;
+  border:solid #F5EEA9;
+  border-width: 3px 0px 0px 3px;
+  border-top-left-radius: 10px;
+}
+.errorMessage {
+  margin: 0px;
+  height: 10px;
+  padding-bottom: 20px;
+  padding-top: 5px;
+  color: #e5573e;
+  font-style: italic;
+  font-weight: bold;
+}
+.errorMessage[viewerror="true"]::before {
+  content: "⚠️";
+}
+.uploadInputContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.button{
+  width: 30px;
+  height: 30px;
+  background-color: #E5573E;
+  background-size: 22px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  border-radius: 5px;
+  position: relative;
+}
+
+.button::after, .button::before{
+  --scale: 0;
+  --tooltip-color: #F5EEA9;
+  --arrow-size: 10px;
+  position:absolute;
+  transform:translateX(-50%) translateY(var(--translate-y,0)) scale(var(--scale));
+  transform-origin: bottom center;
+  transition: 150ms transform ;
+  left: 50%;
+  top: -.4rem;
+}
+.button::before{
+  --translate-y:calc(-100% - var(--arrow-size));
+  content:attr(tooltip);
+  text-align: center;
+  color:#383838;
+  background-color:var(--tooltip-color) ;
+  font-size: small;
+  border-radius: .3rem;
+  padding: .25rem;
+  width: max-content;
+}
+.button::after{
+  content: "";
+  --translate-y:calc(-1 * var(--arrow-size));
+  border: var(--arrow-size) solid transparent;
+  border-top-color: var(--tooltip-color);
+  transform-origin: top center;
+}
+.button:hover::before,
+.button:hover::after
+{
+  --scale: 1;
+}
+.image{
+  position: absolute;
+  width: 135px;
+  height: 135px;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  object-fit: contain;
 }
 .nameContainer{
-    width: 100%;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
 }
-
-.formStatsContainer{
-    display: flex;
-    margin-top: 10px;
-    border-radius: 10px;
-    color: #383838  ;
-}
-
-.statsColumnWidth{
-    flex-grow: 1;
-    flex-basis: 0;
-}
-
 .typesContainer{
-    display: flex;
-    margin: 10px;
+  width: 100%;
 }
-.error{
-    color: #F5B357 ;
+.imageContainer{
+  width: 100%;
 }
-.previewImage{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 150px;
-    height: 100px;
-    background-color: black;
-    color: darkgray;
-}
-.previewImage{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 150px;
-    height: 100px;
-    background-color: black;
-    color: darkgray;
-}
-.viewImage{
-    width: 150px;
-    height: 100px;
-}
-.errorStatusInput{
-    display:flex;
-    background-color:#E5573E ;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-}
-.correctStatusInput{
-    display:flex;
-    background-color: #F5EEA9   ;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-}
-.formTypes{
-    display: flex;
-    padding: 10px;
-    justify-content: space-around;
-}
-.formStatsContainer input{
-    margin: 10px;
-    width: 150px;
-}
-.imageBlock{
-    display: flex;
-}
-.submitButton{
-    width: 60px;
-    margin: auto;
-    margin-top: 15px;
-}
-.errorAncla{
-    height:40px;
-    padding: 5px;
-}
-.errorAncla h5 {
-    margin: 0px;
-    color: #383838;
-}
-
 
 /*#F5EEA9    amarillo*/
 /*#E5573E    rojo*/

@@ -1,6 +1,6 @@
 import style from "./Home.module.css";
 import CardsPages from "../cardsPages/CardsPages";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPokemons } from "../../redux/actions";
 import ReturnBack from "../returnBack/ReturnBack";
@@ -12,7 +12,7 @@ export default function Home({ search, setSearch }) {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getPokemons());
+    if(!Object.keys(home).length) dispatch(getPokemons());
   }, []);
 
   const paginator = (card) => {
