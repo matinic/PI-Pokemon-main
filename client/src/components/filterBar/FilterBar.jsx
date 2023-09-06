@@ -54,7 +54,7 @@ useEffect(()=>
 
     return(
         <div className={style.filterContainer}>
-            <label htmlFor="">FILTRAR ORIGEN</label>
+            <label htmlFor="">FILTER</label>
 
             <select name = 'origin' onChange={filterHandler} value={options.origin} >
                 <option value="all">ALL</option>

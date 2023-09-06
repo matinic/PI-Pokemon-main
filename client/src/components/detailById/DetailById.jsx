@@ -14,6 +14,7 @@ export default function DetailById() {
     dispatch(getPokemonById(id));
     return () => {
       dispatch(wipePokemon());
+      
     };
   }, []);
 

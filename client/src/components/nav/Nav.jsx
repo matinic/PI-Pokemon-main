@@ -5,7 +5,7 @@ import style from "./Nav.module.css"
 
 export default function Nav({setSearch, search}){
     const location = useLocation()
-  
+    
     return(
         <div className={style.navContainer}>
             <div className={style.navButtons}>
@@ -14,13 +14,13 @@ export default function Nav({setSearch, search}){
                 <Link to="/newpoke"><button>Create</button></Link>
             </div>
             {
-            location.pathname !== '/newpoke'?
+            location.pathname !== '/newpoke' ?
             <div className={style.searchContainer}>
 
                 <SearchBar setSearch={setSearch}/>
                 
-                <FilterBar context = {search ? 'searchMode' : 'home'}/> 
-               
+               { !location.pathname.includes('/detail/') ? <FilterBar context = {search ? 'searchMode' : 'home'}/> : null}
+
             </div>
             :<h1 name='title'>CREATE POKEMON</h1>
             }

@@ -103,6 +103,7 @@ export default function reducer(state = initialState, { type, payload }) {
       return {
         ...state,
         error: payload,
+        postedPokemon: payload,
       };
     case GET_TYPES:
       return {

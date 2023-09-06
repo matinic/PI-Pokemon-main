@@ -12,7 +12,7 @@ import { getTypes } from "../../redux/actions";
 export default function NewPoke() {
   const [error, setError] = useState({});
   const dispatch = useDispatch();
-  const { types } = useSelector((state) => state);
+  const { types, postedPokemon } = useSelector((state) => state);
   const [form, setForm] = useState({
     name: "",
     image: "",
@@ -28,11 +28,12 @@ export default function NewPoke() {
   useEffect(() => {
     setError(Validations(form))
     if(types.length < 2) dispatch(getTypes())
-  }, [form]);
+    if(postedPokemon.id) navigate(`/detail/${postedPokemon.id}`)
+  }, [form,postedPokemon]);
 
   const statsName = ["hp", "attack", "deffense", "speed", "height", "weight"];
 
-  console.log(form)
+  const navigate = useNavigate()
 
   const formHandler = (ev) => {
     let { name, value, checked } = ev.target;

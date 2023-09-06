@@ -42,7 +42,7 @@ export default function Home({ search, setSearch }) {
             ></PageButtons>
             <ReturnBack forExecution={() => setSearch(false)} />
             <div className={style.searchParameter}>
-              <h4>Resultados de busqueda: {`"${parameter}"`} </h4>
+              <h4>Search Results for: {`"${parameter}"`} </h4>
             </div>
             <CardsPages
               pages={paginator([...searchMode])}
