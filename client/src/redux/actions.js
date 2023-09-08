@@ -21,7 +21,7 @@ import axios from "axios";
 export const getPokemons = () => {
   return async (dispatch) => {
     try {
-      const res = (await axios.get("http://localhost:3001/pokemons/")).data;
+      const res = (await axios.get("https://backend-pokemon-pi-j4c2.onrender.com/pokemons")).data;
       return dispatch({
         type: GET_POKEMONS,
         payload: res,
@@ -38,7 +38,7 @@ export const getPokemons = () => {
 export const getPokemonById = (id) => {
   return async (dispatch) => {
     try {
-      const res = (await axios.get(`http://localhost:3001/pokemons/${id}`))
+      const res = (await axios.get(`https://backend-pokemon-pi-j4c2.onrender.com/pokemons/${id}`))
         .data;
       return dispatch({
         type: GET_POKEMON_ID,
@@ -56,7 +56,7 @@ export const searchPokemons = (name) => {
   return async (dispatch) => {
     try {
       const res = (
-        await axios.get(`http://localhost:3001/pokemons/name?name=${name}`)
+        await axios.get(`https://backend-pokemon-pi-j4c2.onrender.com/pokemons/name?name=${name}`)
       ).data;
       return dispatch({
         type: SEARCH_POKEMONS,
@@ -73,7 +73,7 @@ export const searchPokemons = (name) => {
 export const getTypes = () => {
   return async (dispatch) => {
     try {
-      const res = (await axios.get("http://localhost:3001/types")).data;
+      const res = (await axios.get("https://backend-pokemon-pi-j4c2.onrender.com/types")).data;
       return dispatch({
         type: GET_TYPES,
         payload: res,
@@ -97,7 +97,7 @@ export const filterAction = (value,context) => {
 export const postPokemon = (body) => {
   return async (dispatch) => {
     try {
-      const res = (await axios.post(`http://localhost:3001/pokemons/`, body))
+      const res = (await axios.post(`https://backend-pokemon-pi-j4c2.onrender.com/pokemons/`, body))
         .data;
       return dispatch({
         type: POST_POKEMON,
