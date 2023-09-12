@@ -1,39 +1,53 @@
-import style from './Detail.module.css'
+import { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getPokemonById, wipePokemon } from "../../redux/actions";
+import style from "./Detail.module.css";
 import ReturnBack from "../returnBack/ReturnBack";
-import { useNavigate } from 'react-router-dom';
 
+export default function DetailById() {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-export default function Detail({card}){
+  const card = useSelector((state) => state.pokemonDetail);
+  useEffect(() => {
+    dispatch(getPokemonById(id));
+    return () => {
+      dispatch(wipePokemon());
+    };
+  }, []);
 
-    const navigate = useNavigate()
+  const statsName = ["hp", "attack", "deffense", "speed", "height", "weight"];
 
-    return(
-        <div className={style.container}> 
+  const stats = statsName.map((stat) => (
+    <div className={style.numberContainer} key={stat}>
+      <h4>{stat.toUpperCase()}</h4>
+      <div>{card[stat]}</div>
+    </div>
+  ));
 
-            <div className={style.cardContainer}>
-                <div className={style.name}>
-                    <ReturnBack forExecution={() => navigate(-1)}/>
-                    <h1>{card.name?.toUpperCase()}</h1>
-                </div>
+  const types = card.types?.map(type => (
+  
+      <div key={type}>{type.toUpperCase()}</div>
+    
+  ))
+  // <ReturnBack forExecution={() => navigate(-1)}/>
+  
 
-                <img src={card.image} alt="" />
-                <div className={style.statsContainer}>
+  return (
+    <div className={style.cardContainer}>
+  
+      <h1 className={style.name}>{card.name?.toUpperCase()}</h1>
 
-                    <div>
-                        <h4>HP <div>{card.hp}</div></h4>
-                        <h4>ATTACK <div>{card.attack}</div></h4>
-                        <h4>DEFFENSE <div>{card.deffense}</div></h4>  
-                    </div>
-                    <div>
-                        <h4>SPEED <div>{card.speed}</div></h4>
-                        <h4>HEIGHT <div>{card.height}</div></h4>
-                        <h4>WEIGH <div>{card.weight}</div></h4>
-                    </div>
-                    <div>
-                        {card.types?.map((type,index) => (<h4 key={index}className={style.types}>{type.toUpperCase()}</h4>))}
-                    </div>
-                </div>
-            </div>         
-        </div>
-    )
+      <img src={card.image} className={style.image} />
+      <div className={style.types}>{types}</div>
+
+      <div className={style.statsContainer}>
+        <div className={style.wrapper}>{[stats[0], stats[1], stats[2]]}</div>
+        <div className={style.wrapper}>{[stats[3], stats[4], stats[5]]}</div>
+      </div>
+
+    </div>
+  );
 }

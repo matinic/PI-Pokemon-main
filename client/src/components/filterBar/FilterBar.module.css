@@ -1,15 +1,25 @@
-.filterContainer{
+.filterBar{
     display:flex;
-    justify-content: center;
-    height: 30px;
-    width: 900px;
-    margin-left: 50px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color:#383838;
 }
-.filterContainer label{
-    margin-right: 15px;
-    margin-left: 30px;
-    color:  #F5EEA9;
+.filterBar label{
+    color: #F5EEA9;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
 }
-.filterContainer select {
-    margin-left: 5px;
+.filterBar p{
+    margin-top: 0px;
+    margin-bottom: 8px;
+    font-size: .85em;
 }
+.filterBar select{
+    border-radius: .4em;
+}
+
+

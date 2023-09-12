@@ -1,3 +1,15 @@
 .formContainer{
     display:  flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 10px;
+}
+.formContainer input{
+    height: 20px;
+}
+.button{
+    width: 30px;
+    height: 23px;
+    margin: 0px;
+    margin-right: 4px;
 }

@@ -27,14 +27,12 @@ const initialState = {
     home: {
       origin: "all",
       type: "all",
-      alphabetical: "",
-      attack: "",
+      sort: ""
     },
     searchMode: {
       origin: "all",
       type: "all",
-      alphabetical: "",
-      attack: "",
+      sort: "",
     },
   },
   pokemonDetail:{},

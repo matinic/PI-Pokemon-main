@@ -3,6 +3,7 @@ import style from "./SearchBar.module.css";
 import { searchPokemons, actualPage, searchParameter, wipeSearch } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import searchIcon from '../../images/search-icon.svg'
 
 export default function SearchBar({ setSearch }) {
   const [name, setName] = useState("");
@@ -24,16 +25,14 @@ export default function SearchBar({ setSearch }) {
   };
 
   return (
-    <div>
       <form className={style.formContainer}>
+        <img onClick={onSearchHandler} src={searchIcon} className={style.button}/>
         <input
           type="buscar pokemon"
           value={name}
           onChange={inputValue}
           name="onSearch"
         />
-        <button onClick={onSearchHandler}>buscar</button>
       </form>
-    </div>
   );
 }

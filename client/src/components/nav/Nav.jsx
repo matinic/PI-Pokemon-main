@@ -2,30 +2,35 @@ import SearchBar from "../searchBar/SearchBar"
 import FilterBar from "../filterBar/FilterBar"
 import { Link, useLocation } from "react-router-dom"
 import style from "./Nav.module.css"
+import {useState} from "react"
 
 export default function Nav({setSearch, search}){
-    const location = useLocation()
-    
+
+    const { pathname } = useLocation()
+
+
     return(
-        <div className={style.navContainer}>
-            <div className={style.navButtons}>
-                <Link to="/"><button>Landing</button></Link>
-                <Link to="/home"><button>Home</button></Link>
-                <Link to="/newpoke"><button>Create</button></Link>
-            </div>
-            {
-            location.pathname !== '/newpoke' ?
-            <div className={style.searchContainer}>
 
-                <SearchBar setSearch={setSearch}/>
+        <>
+            <div className={style.navContainer}>
+                <div className={style.title}>POKEMON PI</div>
                 
-               { !location.pathname.includes('/detail/') ? <FilterBar context = {search ? 'searchMode' : 'home'}/> : null}
-
+                <ul className={style.menu}>
+                    { pathname !== '/home' ? <Link to="/home" ><li>HOME</li></Link> : null }
+                    { pathname !== '/newpoke' ? <Link to="/newpoke" ><li>CREATE</li></Link> : null}
+                </ul>
+                <SearchBar setSearch={setSearch}/>
+               
             </div>
-            :<h1 name='title'>CREATE POKEMON</h1>
+               
+            {   
+                pathname === '/home'  ?
+                    <FilterBar context = {search ? 'searchMode' : 'home'}/>              
+                : null
             }
-            
-            <div className={style.vacio}></div>
-        </div>
+       
+   
+
+        </>
     )
 }

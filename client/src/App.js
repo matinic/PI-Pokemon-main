@@ -6,7 +6,7 @@ import {Routes, Route, useLocation} from 'react-router-dom'
   import Landing from './components/landing/Landing.jsx';
   import Home from './components/home/Home.jsx';
   import NewPoke from './components/newPoke/NewPoke.jsx';
-  import DetailById from './components/detailById/DetailById'
+  import Detail from './components/detail/Detail'
 
 import { useState } from 'react';
  
@@ -26,7 +26,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing/>}/>
         <Route path="/home" element={<Home search={search} setSearch={setSearch}/>}/>
-        <Route path="/detail/:id" element={<DetailById />}/>
+        <Route path="/detail/:id" element={<Detail />}/>
         <Route path="/newpoke" element={<NewPoke />}/>
       </Routes>
     </div>

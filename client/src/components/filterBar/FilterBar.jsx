@@ -24,11 +24,9 @@ Filter.prototype.origin = function (value){
 Filter.prototype.type = function (value){
     if(value !== 'all') this.st = this.st.filter(({types}) => types.includes(value))
 }
-Filter.prototype.alphabetical = function (value){
+Filter.prototype.sort = function (value){
     if(value === 'az') this.st = this.st.sort((a,b) => a.name.localeCompare(b.name))
     if(value === 'za') this.st = this.st.sort((a,b) => b.name.localeCompare(a.name))
-}
-Filter.prototype.attack = function (value){
     if(value === 'MostPW') this.st = this.st.sort((a,b) => b.attack - a.attack)
     if(value === 'LessPW') this.st = this.st.sort((a,b) => a.attack - b.attack)
 }
@@ -43,8 +41,7 @@ const filterHandler = (e)=>{
 useEffect(()=>{
     newFilter.origin(options.origin)
     newFilter.type(options.type)
-    newFilter.alphabetical(options.alphabetical)
-    newFilter.attack(options.attack)
+    newFilter.sort(options.sort)
     dispatch(filterAction(newFilter.st,context))
 },[options])
 
@@ -53,36 +50,38 @@ useEffect(()=>
 ,[])
 
     return(
-        <div className={style.filterContainer}>
-            <label htmlFor="">FILTER</label>
+        <div className={style.filterBar}>
 
+        <label>
+            <p>Filter by Origin</p>
             <select name = 'origin' onChange={filterHandler} value={options.origin} >
-                <option value="all">ALL</option>
-                <option value="created">CREATED</option>
+                <option value="all">all</option>
+                <option value="created">created</option>
             </select>
-            <label htmlFor="">FILTER BY TYPE</label>
-
-
+        </label>
+        
+        <label>
+            <p>Filter by Type</p>
             <select name="type" onChange={filterHandler} value={options.type}>
                 {
-                   types?.map((type,index) => <option value={type} key={index} name={'others'}>{type}</option>)
+                    types?.map((type,index) => <option value={type} key={index} name={'others'}>{type}</option>)
                 } 
             </select>
-
-            <label htmlFor="">ORDER</label>
-
-            <select name="alphabetical" onChange={filterHandler}>
-                <option>Alphabetic</option>
-                <option value="az">A - Z</option>
-                <option value="za">Z - A</option>
-            </select>
-
-            <select name="attack" onChange={filterHandler}>
-                <option>Power Attack</option>
-                <option value="MostPW">Most PW</option>
-                <option value="LessPW">Less PW</option>
-            </select>
+        </label>
             
+        <label>
+            <p>Sort</p>
+            <select name="sort" onChange={filterHandler} value={options.sort}>
+                <option>Default</option>
+            
+                    <option value="az">A - Z (alphabetic)</option>
+                    <option value="za">Z - A (alphabetic)</option> 
+                    <option value="MostPW">Most Powerful</option>
+                    <option value="LessPW">Less Powerful</option>
+              
+            </select>
+        </label>
+     
         </div>
     )
 }

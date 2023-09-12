@@ -1,41 +1,35 @@
-h1[name="title"] {
-    color: #f5eea9;
-    margin: 0 0 20px;
-    text-align: center;
-  }
-.navContainer{
-    height: 100px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    background-color: #E5573E;
-    justify-content: space-between;
-    
+.title {
+  color: #f5eea9;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1.4em;
 }
-.searchContainer{
-    display: flex;
-    align-items: center;
-}
-.vacio{
-    width: 33%;
-}
-.navButtons{
-    width: 33%;
-}
-.navButtons button{
-    height: 30px;
-  width: 100px;
+.navContainer {
   position: relative;
-  background-color: transparent;
-  cursor: pointer;
-  border: 2px solid #252525;
-  overflow: hidden;
-  border-radius: 30px;
-  color: #333;
-  transition: all 0.5s ease-in-out;
+  background-color: #e5573e;
+  justify-content: space-between;
+  padding: 10px
 }
-.navButtons button:hover {
-    box-shadow: 1px 1px 200px #252525;
-    color: #fff;
-    border: none;
-  }
+
+
+/*MENU*/
+.menu {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  cursor: pointer;
+  list-style-type: none;
+  font-size: 1em;
+  font-weight: bold;
+}
+.menu li{
+  display: inline;
+  color: #383838;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-left: 2px solid #383838;
+}
+
+
+
+
