@@ -24,10 +24,11 @@ export default function CardsPages({ pages, pageNumber }) {
 
   return (
     <div>
+
       <div className={style.allPagesContainer}>
         <div className={style.pageContainer}>{actualPag}</div>
       </div>
-
+      
     </div>
   );
 }

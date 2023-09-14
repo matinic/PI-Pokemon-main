@@ -1,14 +1,14 @@
 import { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPokemonById, wipePokemon } from "../../redux/actions";
+import LeftArrow from "../leftArrow/LeftArrow";
 import style from "./Detail.module.css";
-import ReturnBack from "../returnBack/ReturnBack";
+
 
 export default function DetailById() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const card = useSelector((state) => state.pokemonDetail);
   useEffect(() => {
@@ -28,14 +28,12 @@ export default function DetailById() {
   ));
 
   const types = card.types?.map(type => (
-  
       <div key={type}>{type.toUpperCase()}</div>
-    
   ))
-  // <ReturnBack forExecution={() => navigate(-1)}/>
-  
 
   return (
+    <>
+    <LeftArrow/>
     <div className={style.cardContainer}>
   
       <h1 className={style.name}>{card.name?.toUpperCase()}</h1>
@@ -49,5 +47,6 @@ export default function DetailById() {
       </div>
 
     </div>
+    </>
   );
 }

@@ -30,8 +30,8 @@ export default function PageButtons({pages, father, pageNumber}) {
       {"<<"}
     </button>
 
-    {pages
-      ? pages.map((pag, index) => (
+    {
+      pages.map((pag, index) => (
           <button
             name="actual"
             value={index}
@@ -45,8 +45,8 @@ export default function PageButtons({pages, father, pageNumber}) {
           >
             {index}
           </button>
-        ))
-      : null}
+      ))
+    }
 
     <button
       className={style.pageButtons}

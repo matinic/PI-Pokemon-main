@@ -5,17 +5,16 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import searchIcon from '../../images/search-icon.svg'
 
-export default function SearchBar({ setSearch }) {
+export default function SearchBar() {
   const [name, setName] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const onSearchHandler = (e) => {
     e.preventDefault();
     dispatch(searchPokemons(name));
-    setSearch(true);
     dispatch(searchParameter(name));
-    dispatch(actualPage(1 , "searchMode") );
-    navigate('/home')
+    dispatch(actualPage(1 , "/search") );
+    navigate('/search')
     if(!e.target.value) {
         dispatch(wipeSearch())
     }
@@ -25,7 +24,7 @@ export default function SearchBar({ setSearch }) {
   };
 
   return (
-      <form className={style.formContainer}>
+      <form className={style.formContainer} onSubmit={onSearchHandler}>
         <img onClick={onSearchHandler} src={searchIcon} className={style.button}/>
         <input
           type="buscar pokemon"

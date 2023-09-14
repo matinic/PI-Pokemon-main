@@ -1,18 +1,10 @@
-.body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
 
 .form {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 20px;
   margin-top: 10px;
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 25px;
   border-radius: 20px;
   background-color: #383838;
   color: #f5eea9;
@@ -25,26 +17,26 @@
   text-align: center;
   background-color: #f5eea9;
 }
-.form input[error=true]{
-  background-color:#e5573e;
-  color:#f5eea9
-}
-.form input[name="name"] {
-  width: 100%;
-}
 .form h4 {
   margin: 0px;
 }
 .statsContainer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
+}
+.statsContainer input{
+  width: 100px;
 }
 .checkboxContainer {
   display: flex;
   width: 100%;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
+}
+.inputError{
+  background-color:#e5573e;
+  color:#f5eea9
 }
 .checkBox{
   width: 100px;
@@ -102,6 +94,9 @@
 }
 
 .submitButton{
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
   background-color: #F5B357;
   font-weight: bold;
   margin-top: 20px;
@@ -132,28 +127,7 @@
   transform:rotate(180deg)
 }
 
-.top::after, .bottom::after{
-  content: "";
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  width: 10px;
-  height: 10px;
-  border:solid #F5EEA9;
-  border-width: 3px 3px 0px 0px;
-  border-top-right-radius: 10px;
-}
-.top::before, .bottom::before{
-  content: "";
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 10px;
-  height: 10px;
-  border:solid #F5EEA9;
-  border-width: 3px 0px 0px 3px;
-  border-top-left-radius: 10px;
-}
+
 .errorMessage {
   margin: 0px;
   height: 10px;
@@ -168,7 +142,6 @@
 }
 .uploadInputContainer{
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 10px;
 }
@@ -184,58 +157,24 @@
   position: relative;
 }
 
-.button::after, .button::before{
-  --scale: 0;
-  --tooltip-color: #F5EEA9;
-  --arrow-size: 10px;
-  position:absolute;
-  transform:translateX(-50%) translateY(var(--translate-y,0)) scale(var(--scale));
-  transform-origin: bottom center;
-  transition: 150ms transform ;
-  left: 50%;
-  top: -.4rem;
-}
-.button::before{
-  --translate-y:calc(-100% - var(--arrow-size));
-  content:attr(tooltip);
-  text-align: center;
-  color:#383838;
-  background-color:var(--tooltip-color) ;
-  font-size: small;
-  border-radius: .3rem;
-  padding: .25rem;
-  width: max-content;
-}
-.button::after{
-  content: "";
-  --translate-y:calc(-1 * var(--arrow-size));
-  border: var(--arrow-size) solid transparent;
-  border-top-color: var(--tooltip-color);
-  transform-origin: top center;
-}
-.button:hover::before,
-.button:hover::after
-{
-  --scale: 1;
-}
-.image{
-  position: absolute;
-  width: 135px;
-  height: 135px;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  object-fit: contain;
-}
 .nameContainer{
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.nameContainer input{
+  width: 250px;
 }
 .typesContainer{
   width: 100%;
 }
 .imageContainer{
-  width: 100%;
-}
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  }
 
 /*#F5EEA9    amarillo*/
 /*#E5573E    rojo*/

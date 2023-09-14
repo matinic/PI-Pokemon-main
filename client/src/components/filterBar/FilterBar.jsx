@@ -50,39 +50,37 @@ useEffect(()=>
 ,[])
 
     return(
-        <div className={style.filterBar}>
+            <div className={style.filterBar}>
 
-        <label>
-            <p>Filter by Origin</p>
-            <select name = 'origin' onChange={filterHandler} value={options.origin} >
-                <option value="all">all</option>
-                <option value="created">created</option>
-            </select>
-        </label>
-        
-        <label>
-            <p>Filter by Type</p>
-            <select name="type" onChange={filterHandler} value={options.type}>
-                {
-                    types?.map((type,index) => <option value={type} key={index} name={'others'}>{type}</option>)
-                } 
-            </select>
-        </label>
-            
-        <label>
-            <p>Sort</p>
-            <select name="sort" onChange={filterHandler} value={options.sort}>
-                <option>Default</option>
-            
-                    <option value="az">A - Z (alphabetic)</option>
-                    <option value="za">Z - A (alphabetic)</option> 
-                    <option value="MostPW">Most Powerful</option>
-                    <option value="LessPW">Less Powerful</option>
-              
-            </select>
-        </label>
-     
-        </div>
+                <label>
+                    <p>Filter by Origin</p>
+                    <select name = 'origin' onChange={filterHandler} value={options.origin} >
+                        <option value="all">all</option>
+                        <option value="created">created</option>
+                    </select>
+                </label>
+                
+                <label>
+                    <p>Filter by Type</p>
+                    <select name="type" onChange={filterHandler} value={options.type}>
+                        {
+                            types?.map((type,index) => <option value={type} key={index} name={'others'}>{type}</option>)
+                        } 
+                    </select>
+                </label>
+                    
+                <label>
+                    <p>Sort</p>
+                    <select name="sort" onChange={filterHandler} value={options.sort}>
+                        <option>Default</option>
+                        <option value="az">A - Z (alphabetic)</option>
+                        <option value="za">Z - A (alphabetic)</option> 
+                        <option value="MostPW">Most Powerful</option>
+                        <option value="LessPW">Less Powerful</option>
+                    </select>
+                </label>
+                
+            </div>
     )
 }
 

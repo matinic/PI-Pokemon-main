@@ -16,20 +16,20 @@ import {
 
 const initialState = {
   original:{
-    home:[],
-    searchMode:[]
+    '/home':[],
+    '/search':[]
   },
   render:{
-    home:[],
-    searchMode:[]
+    '/home':[],
+    '/search':[]
   },
   filterOptions: {
-    home: {
+    '/home': {
       origin: "all",
       type: "all",
       sort: ""
     },
-    searchMode: {
+    '/search': {
       origin: "all",
       type: "all",
       sort: "",
@@ -38,12 +38,12 @@ const initialState = {
   pokemonDetail:{},
   postedPokemon: {},
   actualPage: {
-    home: 1,
-    searchMode: 1,
+    '/home': 1,
+    '/search': 1,
   },
   error: "",
   types: ["all"],
-  parameter: "",
+  searchWord: "",
 };
 
 export default function reducer(state = initialState, { type, payload }) {
@@ -52,8 +52,8 @@ export default function reducer(state = initialState, { type, payload }) {
     case GET_POKEMONS:
       return {
         ...state,
-        original: {...state.original,home: payload},
-        render: {...state.render,home: payload}
+        original: {...state.original,'/home': payload},
+        render: {...state.render,'/home': payload}
       };
     case GET_POKEMON_ID:
       return {
@@ -63,8 +63,8 @@ export default function reducer(state = initialState, { type, payload }) {
     case SEARCH_POKEMONS:
       return {
         ...state,
-        original: {...state.original, searchMode: payload},
-        render: {...state.render, searchMode: payload}
+        original: {...state.original, '/search': payload},
+        render: {...state.render, '/search': payload}
       };
     case FILTER:
       return {
@@ -116,7 +116,7 @@ export default function reducer(state = initialState, { type, payload }) {
     case SEARCH_PARAMETER:
       return {
         ...state,
-        parameter: payload,
+        searchWord: payload,
       };
     case WIPE_SEARCH:
       return {

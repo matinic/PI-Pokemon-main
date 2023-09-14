@@ -1,5 +1,5 @@
 import styles from "./NewPoke.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { postPokemon } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Validations from "./Validations";
@@ -7,12 +7,15 @@ import { useNavigate } from "react-router-dom";
 import paste from "./../../images/paste.png"
 import noimage from "./../../images/no-image.jpg"
 import { getTypes } from "../../redux/actions";
+import LeftArrow from "../leftArrow/LeftArrow";
 //import ValidationsName from './ValidationsName';
 
 export default function NewPoke() {
-  const [error, setError] = useState({});
+
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const { types, postedPokemon } = useSelector((state) => state);
+  const [error, setError] = useState({});
   const [form, setForm] = useState({
     name: "",
     image: "",
@@ -32,8 +35,6 @@ export default function NewPoke() {
   }, [form,postedPokemon]);
 
   const statsName = ["hp", "attack", "deffense", "speed", "height", "weight"];
-
-  const navigate = useNavigate()
 
   const formHandler = (ev) => {
     let { name, value, checked } = ev.target;
@@ -127,10 +128,10 @@ const buttonStyle = {
   backgroundImage: `url(${paste})`,
 }
 
-
 return (
-    <div className={styles.body}>
-      <form className={styles.form}>
+  <div>
+  <LeftArrow/>
+        <form className={styles.form}>
 
         <div className={styles.nameContainer}>
             <h4>NAME</h4>
@@ -142,7 +143,7 @@ return (
                 error={Boolean(error.name).toString()}
             />
             <div style={{display:'flex', justifyContent:'space-between'}}>
-              <h5 className={styles.errorMessage} viewerror={ Boolean(error.name).toString() }>{error.name}</h5>
+              <h5 style={{marginRight: '10px'}} className={styles.errorMessage} viewerror={ Boolean(error.name).toString()}>{error.name}</h5>
               <h5 style={!error.name ? {color:'#F5EEA9'} : null} className={styles.errorMessage}>{form.name.length}</h5>
             </div>
         </div>
@@ -151,7 +152,6 @@ return (
           {stats}
         </div>
           
-
         <div className={styles.typesContainer}>
           <h4>TYPES</h4>
           <div className={styles.checkboxContainer}>
@@ -160,33 +160,13 @@ return (
           <h5 className={styles.errorMessage} viewerror={ Boolean(error.types).toString() }>{error.types}</h5>
         </div>
 
-
         <div className={styles.imageContainer}>
           <h4>IMAGE</h4>
-
           
-              <div className={styles.upImgContainer}>
-              <div className={styles.preview}>
-                <span className={styles.top}></span>
-                {!error.image ? <img 
-                      src={form.image}
-                      className={styles.image}
-                    />
-                    :
-                    <img 
-                      src={noimage}
-                      className={styles.image}
-                    />
-                  }
-                <span className={styles.bottom}></span>
-              </div>   
-
-              <div className={styles.uploadInputContainer}>
-                <span className={styles.button } style={ buttonStyle } tooltip='paste link' onClick={handlerPaste} name='image'></span>
-                <input type="text" placeholder="paste link" value={form.image} onChange={formHandler} name="image"/>
-              </div>
-          
-            </div>
+          <div className={styles.uploadInputContainer}>
+            <span className={styles.button } style={ buttonStyle } tooltip='paste link' onClick={handlerPaste} name='image'></span>
+            <input type="text" placeholder="paste link" value={form.image} onChange={formHandler} name="image"/>
+          </div>
 
         </div>
 
@@ -195,6 +175,6 @@ return (
         </button>
 
       </form>
-    </div>
+  </div>
   );
 }
