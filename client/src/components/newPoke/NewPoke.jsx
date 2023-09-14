@@ -73,7 +73,7 @@ export default function NewPoke() {
     }
   };
 
-  const postPokemonHnadler = (ev) => {
+  const submitHandler = (ev) => {
     ev.preventDefault();
     dispatch(postPokemon(form));
     alert("pokemon creado");
@@ -170,7 +170,7 @@ return (
 
         </div>
 
-        <button onClick={postPokemonHnadler} className={styles.submitButton} disabled={Boolean(Object.keys(error).length)}>
+        <button onClick={submitHandler} className={styles.submitButton} disabled={Boolean(Object.keys(error).length)}>
           CREATE
         </button>
 

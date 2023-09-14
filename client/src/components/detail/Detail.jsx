@@ -13,9 +13,7 @@ export default function DetailById() {
   const card = useSelector((state) => state.pokemonDetail);
   useEffect(() => {
     dispatch(getPokemonById(id));
-    return () => {
-      dispatch(wipePokemon());
-    };
+    dispatch(wipePokemon());
   }, []);
 
   const statsName = ["hp", "attack", "deffense", "speed", "height", "weight"];

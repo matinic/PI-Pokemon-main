@@ -112,6 +112,7 @@ export default function reducer(state = initialState, { type, payload }) {
       return {
         ...state,
         pokemonDetail: payload,
+        postedPokemon: payload
       };
     case SEARCH_PARAMETER:
       return {
