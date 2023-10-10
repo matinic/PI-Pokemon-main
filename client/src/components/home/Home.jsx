@@ -1,3 +1,4 @@
+import { useState } from "react";
 import style from "./Home.module.css";
 import CardsPages from "../cardsPages/CardsPages";
 import { useEffect } from "react";
@@ -6,18 +7,21 @@ import { getPokemons } from "../../redux/actions";
 import PageButtons from "../pageButtons/PageButtons";
 import { useLocation } from "react-router-dom";
 import LeftArrow from "../leftArrow/LeftArrow";
+import {InfinitySpin} from 'react-loader-spinner'
 
 
 export default function Home({paginator}) {
+
 
   const dispatch = useDispatch();
   const { pathname } = useLocation()
   const { render, actualPage } = useSelector((state) => state);
   const pages = paginator([...render[pathname]])
   const pageNumber = actualPage[pathname]
+  const valueExist = Object.keys(render[pathname]).length
 
   useEffect(() => {
-    if(!Object.keys(render[pathname]).length) dispatch(getPokemons());
+    if(!valueExist) dispatch(getPokemons());
   }, []);
 
   return (
@@ -28,7 +32,11 @@ export default function Home({paginator}) {
               <LeftArrow/>
             : null
             }
-          <CardsPages pages={pages} pageNumber={pageNumber}/>
+          {
+            valueExist ?
+            <CardsPages pages={pages} pageNumber={pageNumber}/>
+            : <h1>Loading...</h1>
+            }
       </div>
     </div>
   );
