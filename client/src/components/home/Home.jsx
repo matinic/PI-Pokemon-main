@@ -1,4 +1,3 @@
-import { useState } from "react";
 import style from "./Home.module.css";
 import CardsPages from "../cardsPages/CardsPages";
 import { useEffect } from "react";
@@ -7,7 +6,7 @@ import { getPokemons } from "../../redux/actions";
 import PageButtons from "../pageButtons/PageButtons";
 import { useLocation } from "react-router-dom";
 import LeftArrow from "../leftArrow/LeftArrow";
-import {InfinitySpin} from 'react-loader-spinner'
+
 
 
 export default function Home({paginator}) {
