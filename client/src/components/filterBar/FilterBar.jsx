@@ -31,6 +31,7 @@ Filter.prototype.sort = function (value){
     if(value === 'LessPW') this.st = this.st.sort((a,b) => a.attack - b.attack)
 }
 
+
 const newFilter = new Filter([...inmutable])
 
 const filterHandler = (e)=>{

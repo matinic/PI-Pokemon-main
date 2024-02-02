@@ -21,10 +21,49 @@ import axios from "axios";
 export const getPokemons = () => {
   return async (dispatch) => {
     try {
-      const res = (await axios.get("https://backend-pokemon-pi-j4c2.onrender.com/pokemons")).data;
+      const {results} = (
+        await axios(`https://pokeapi.co/api/v2/pokemon?limit=60`)
+      ).data;
+      const pokemons = await Promise.all(
+        results.map(async (pokemon) => {
+          const response = (await axios(pokemon.url)).data;
+          const {
+            id,
+            name,
+            sprites: {
+              other: {
+                "official-artwork": { front_default },
+              },
+            },
+            stats,
+            height,
+            weight,
+            types,
+          } = response;
+        
+          const hp = stats[0].base_stat;
+          const attack = stats[1].base_stat;
+          const deffense = stats[2].base_stat;
+          const speed = stats[5].base_stat;
+        
+          return {
+            id,
+            name,
+            image: front_default,
+            hp,
+            attack,
+            deffense,
+            speed,
+            height,
+            weight,
+            types: types.map((type) => type.type.name),
+          };
+
+        })
+      );
       return dispatch({
         type: GET_POKEMONS,
-        payload: res,
+        payload: pokemons,
       });
     } catch (error) {
       return dispatch({

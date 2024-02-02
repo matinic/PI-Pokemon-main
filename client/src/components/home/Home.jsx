@@ -11,7 +11,6 @@ import LeftArrow from "../leftArrow/LeftArrow";
 
 export default function Home({paginator}) {
 
-
   const dispatch = useDispatch();
   const { pathname } = useLocation()
   const { render, actualPage } = useSelector((state) => state);
