@@ -16,54 +16,16 @@ import {
   WIPE_POKEMON,
   WIPE_SEARCH,
 } from "./types";
-import axios from "axios";
+
+import instance from "../axios/railway";
 
 export const getPokemons = () => {
   return async (dispatch) => {
     try {
-      const {results} = (
-        await axios(`https://pokeapi.co/api/v2/pokemon?limit=60`)
-      ).data;
-      const pokemons = await Promise.all(
-        results.map(async (pokemon) => {
-          const response = (await axios(pokemon.url)).data;
-          const {
-            id,
-            name,
-            sprites: {
-              other: {
-                "official-artwork": { front_default },
-              },
-            },
-            stats,
-            height,
-            weight,
-            types,
-          } = response;
-        
-          const hp = stats[0].base_stat;
-          const attack = stats[1].base_stat;
-          const deffense = stats[2].base_stat;
-          const speed = stats[5].base_stat;
-        
-          return {
-            id,
-            name,
-            image: front_default,
-            hp,
-            attack,
-            deffense,
-            speed,
-            height,
-            weight,
-            types: types.map((type) => type.type.name),
-          };
-
-        })
-      );
+      const res = (await instance({url:"/pokemons"})).data;
       return dispatch({
         type: GET_POKEMONS,
-        payload: pokemons,
+        payload: res,
       });
     } catch (error) {
       return dispatch({
@@ -77,8 +39,7 @@ export const getPokemons = () => {
 export const getPokemonById = (id) => {
   return async (dispatch) => {
     try {
-      const res = (await axios.get(`https://backend-pokemon-pi-j4c2.onrender.com/pokemons/${id}`))
-        .data;
+      const res = (await instance({url:`/pokemons/${id}`})).data;
       return dispatch({
         type: GET_POKEMON_ID,
         payload: res,
@@ -95,7 +56,7 @@ export const searchPokemons = (name) => {
   return async (dispatch) => {
     try {
       const res = (
-        await axios.get(`https://backend-pokemon-pi-j4c2.onrender.com/pokemons/name?name=${name}`)
+        await instance({url:`/pokemons/name?name=${name}`})
       ).data;
       return dispatch({
         type: SEARCH_POKEMONS,
@@ -112,7 +73,7 @@ export const searchPokemons = (name) => {
 export const getTypes = () => {
   return async (dispatch) => {
     try {
-      const res = (await axios.get("https://backend-pokemon-pi-j4c2.onrender.com/types")).data;
+      const res = (await instance({url:"/types"})).data;
       return dispatch({
         type: GET_TYPES,
         payload: res,
@@ -136,7 +97,7 @@ export const filterAction = (value,context) => {
 export const postPokemon = (body) => {
   return async (dispatch) => {
     try {
-      const res = (await axios.post(`https://backend-pokemon-pi-j4c2.onrender.com/pokemons/`, body))
+      const res = (await instance.post({url:"/pokemons"},body))
         .data;
       return dispatch({
         type: POST_POKEMON,
